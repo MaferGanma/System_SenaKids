@@ -1,0 +1,152 @@
+/* El contenedor sigue igual */
+.container {
+    background-image: linear-gradient(to top right, #8B5CF6, #EC4899);
+    min-height: 93vh;
+    margin: 0;
+    display: flex;
+    justify-content: center; /* Centra el slider horizontalmente */
+    align-items: flex-start; /* Cambié a flex-start para alinear al principio y agregar margen desde el top */
+    font-family: monospace;
+    padding-top: 33px; /* Aquí aumentamos el espacio desde la parte superior */
+    border-radius: 15px;
+    overflow: hidden;
+    /* Centrear Contenido */
+    margin-left: auto; /* Centrado horizontal */
+    margin-right: auto; /* Centrado horizontal */
+}
+
+/* El slider reducido pero aún grande */
+.slider {
+    position: relative;
+    width: 80%;  /* Reducción a un 80% del ancho de la pantalla */
+    height: 600px; /* Altura ajustada */
+    overflow: hidden;
+}
+
+/* Los elementos dentro del slider también más pequeños */
+.item {
+    position: absolute;
+    width: 400px; /* Reducimos el ancho de cada item */
+    height: 600px; /* Reducimos la altura */
+    text-align: justify;
+    background-color: #fff;
+    border-radius: 15px; /* Mantenemos el borde redondeado */
+    padding: 25px; /* Reducimos el padding dentro de cada item */
+    transition: 0.5s;
+    left: calc(50% - 200px); /* Centramos los items */
+    top: 0;
+    display: flex;
+    flex-direction: column; /* Alineamos el contenido verticalmente */
+    justify-content: flex-end; /* Coloca el texto al fondo de cada item */
+    z-index: 0; /* Para asegurarnos de que la imagen esté en el fondo */
+}
+
+/* Ajustar la imagen para que ocupe todo el área del slider */
+.item img {
+    width: 100%;
+    height: 86%;
+    object-fit: cover; /* Esto asegura que la imagen ocupe el área sin distorsionarse */
+    position: absolute; /* La imagen se coloca en el fondo */
+    top: 0;
+    left: 0;
+    border-radius: 15px; /* Mantiene los bordes redondeados */
+    z-index: 1;
+}
+
+/* Estilo para el texto (encima de la imagen) */
+.item h1 {
+    position: relative;
+    z-index: 1;
+    color: black;
+    font-size: 25px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra para mejor contraste */
+}
+
+.item p {
+    margin: 0;
+    color: black;
+    font-size: 16px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra para mejor contraste */
+}
+
+/* Los botones de navegación */
+#next, #prev {
+    position: absolute;
+    top: 40%;
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    font-size: 50px; /* Reducimos el tamaño de los botones */
+    font-family: monospace;
+    font-weight: bold;
+    left: 30px; /* Ajustamos la posición de los botones */
+}
+
+#next {
+    left: unset;
+    right: 30px; /* Ajustamos la posición del botón derecho */
+}
+
+
+
+/* Media Queries para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .slider {
+        width: 90%; /* Ajustamos el ancho del slider a un 90% */
+        justify-content: center;
+        height: 700px; /* Reducimos la altura del slider */
+    }
+
+    .item {
+        width: 80%; /* Reducimos el ancho de cada item al 80% */
+        height: 500px; /* Reducimos la altura del item */
+        padding: 15px; /* Reducimos el padding */
+    }
+
+    .item img {
+        height: 80%; /* Ajustamos la imagen para que ocupe menos altura */
+    }
+
+    .item h1 {
+        font-size: 20px; /* Reducimos el tamaño del título */
+    }
+
+    .item p {
+        font-size: 14px; /* Reducimos el tamaño del texto */
+    }
+
+    #next, #prev {
+        font-size: 40px; /* Reducimos el tamaño de los botones */
+    }
+}
+
+/* Media Queries para pantallas muy pequeñas (móviles) */
+@media (max-width: 480px) {
+    .slider {
+        width: 200%; /* El slider ocupará el 95% del ancho de la pantalla */
+        height: 700px; /* Reducimos aún más la altura */
+        justify-content: left;
+    }
+
+    .item {
+        width: 90%; /* Reducimos el ancho de cada item al 90% */
+        height: 400px; /* Ajustamos la altura */
+        padding: 10px; /* Reducimos más el padding */
+    }
+
+    .item img {
+        height: 75%; /* Reducimos la altura de la imagen */
+    }
+
+    .item h1 {
+        font-size: 18px; /* Reducimos más el tamaño del título */
+    }
+
+    .item p {
+        font-size: 12px; /* Reducimos el tamaño del texto */
+    }
+
+    #next, #prev {
+        font-size: 35px; /* Reducimos más el tamaño de los botones */
+    }
+}

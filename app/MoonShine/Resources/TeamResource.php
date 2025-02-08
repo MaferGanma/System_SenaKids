@@ -21,7 +21,7 @@ class TeamResource extends ModelResource
 {
     protected string $model = Team::class;
 
-    protected string $title = 'Teams';
+    protected string $title = 'Curso/Colegio';
 
     protected bool $createInModal = true;
     protected bool $editInModal = true;
@@ -43,8 +43,8 @@ class TeamResource extends ModelResource
         return [
             Block::make([
                 ID::make()->sortable(),
-                Text::make('Team Name', 'name'),
-                Text::make('Country', 'country'),
+                Text::make('Curso', 'name'),
+                Text::make('Colegio', 'country'),
             ]),
         ];
     }

@@ -16,6 +16,7 @@ use MoonShine\Contracts\Resources\ResourceContract;
 use MoonShine\Menu\MenuElement;
 use MoonShine\Pages\Page;
 use Closure;
+use MoonShine\Pages\ViewPage;
 use MoonShine\Menu\MenuDivider;
 
 class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
@@ -52,76 +53,378 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                     new MoonShineUserRoleResource()
                 ),
             ]),
+
             MenuDivider::make(),
-            MenuItem::make('Cursos/Paralelos', new TeamResource)->icon('heroicons.outline.user-group'),
+
+            MenuItem::make('Cursos/Paralelos', new TeamResource)->icon('heroicons.list-bullet'),
             //MenuItem::make('Curso', new TeamResource)->icon('heroicons.outline.flag'),
             MenuItem::make('Estudiantes', new PlayerResource)->icon('heroicons.user'),
+            //(Amo esto<3) Una nueva Pestaña:
+            //MenuItem::make('Title', ViewPage::make()->setTitle('hello')),
+
+            MenuDivider::make(),
+            MenuItem::make('INICIO', ViewPage::make(title: 'Inicio', alias: 'inicio')
+                ->setContentView(contentView: 'home')
+                ->setBreadcrumbs([
+                    '#' => 'Inicio'
+                ]))->icon('heroicons.home'),
 
             MenuDivider::make(),
             // Menú para cada categoría
-        MenuGroup::make('Alfabeto Dactilológico', [
-            MenuItem::make('Diversión en Pantalla', '/alfabeto-dactilologico/diversion'),
-            MenuItem::make('Tarjetas Mágicas', '/alfabeto-dactilologico/tarjetas'),
-            MenuItem::make('El Cuentacuentos', '/alfabeto-dactilologico/cuentacuentos'),
-            MenuItem::make('Explora y Aprende', '/alfabeto-dactilologico/explora'),
-            MenuItem::make('Juguemos', '/alfabeto-dactilologico/juguemos'),
-            ])->icon('heroicons.outline.academic-cap'),
+            MenuGroup::make('Alfabeto Dactilológico', [
+                MenuItem::make(
+                    'Diversión en Pantalla',
+                    ViewPage::make(title: 'Diversión en Pantalla', alias: 'alfabeto')
+                        ->setContentView(contentView: 'Tema1.Alfabeto')  // Este es tu archivo
+                        ->setBreadcrumbs([
+                            '#' => 'Diversión en Pantalla'
+                        ])
+                )->icon('heroicons.outline.play'),
+                MenuItem::make(
+                    'Tarjetas Mágicas',
+                    ViewPage::make(title: 'Tarjetas Mágicas', alias: 'tarjetas-alfabeto')
+                        ->setContentView(contentView: 'Tema1.TarjetasAlfabeto')  // Este es tu archivo
+                        ->setBreadcrumbs([
+                            '#' => 'Tarjetas Mágicas'
+                        ])
+                )->icon('heroicons.outline.rectangle-stack'),
+                MenuItem::make(
+                    'El Cuentacuentos',
+                    ViewPage::make(title: 'El Cuentacuentos', alias: 'cuentacuentos-alfabeto')
+                        ->setContentView(contentView: 'Tema1.CuentosAlfabeto')  // Este es tu archivo
+                        ->setBreadcrumbs([
+                            '#' => 'El Cuentacuentos'
+                        ])
+                )->icon('heroicons.outline.book-open'),
+                MenuItem::make(
+                    'Explora y Aprende',
+                    ViewPage::make(title: 'Explora y Aprende', alias: 'explora-alfabeto')
+                        ->setContentView(contentView: 'Tema1.ExploraAlfabeto')  // Este es tu archivo
+                        ->setBreadcrumbs([
+                            '#' => 'Explora y Aprende'
+                        ])
+                )->icon('heroicons.outline.viewfinder-circle'),
+                MenuItem::make(
+                    'Juguemos',
+                    ViewPage::make(title: 'Juguemos', alias: 'juguemos-alfabeto')
+                        ->setContentView(contentView: 'Tema1.JuguemosAlfabeto')  // Este es tu archivo
+                        ->setBreadcrumbs([
+                            '#' => 'Juguemos'
+                        ])
+                )->icon('heroicons.outline.puzzle-piece'),
+            ])->icon('heroicons.chat-bubble-left-right'),
 
-        MenuGroup::make('Los Números', [
-            MenuItem::make('Diversión en Pantalla', '/los-numeros/diversion'),
-            MenuItem::make('Tarjetas Mágicas', '/los-numeros/tarjetas'),
-            MenuItem::make('El Cuentacuentos', '/los-numeros/cuentacuentos'),
-            MenuItem::make('Explora y Aprende', '/los-numeros/explora'),
-            MenuItem::make('Juguemos', '/los-numeros/juguemos'),
-            ])->icon('heroicons.outline.academic-cap'),
+            MenuGroup::make('Los Números', [
+                MenuItem::make(
+                    'Diversión en Pantalla',
+                    ViewPage::make(title: 'Diversión en Pantalla', alias: 'numeros')
+                        ->setContentView(contentView: 'Tema2.Numeros')  // Este es tu archivo para el Tema 2
+                        ->setBreadcrumbs([
+                            '#' => 'Diversión en Pantalla'
+                        ])
+                )->icon('heroicons.outline.play'),
+                MenuItem::make(
+                    'Tarjetas Mágicas',
+                    ViewPage::make(title: 'Tarjetas Mágicas', alias: 'tarjetas-numeros')
+                        ->setContentView(contentView: 'Tema2.TarjetasNumeros')  // Este es tu archivo para el Tema 2
+                        ->setBreadcrumbs([
+                            '#' => 'Tarjetas Mágicas'
+                        ])
+                )->icon('heroicons.outline.swatch'),
+                MenuItem::make(
+                    'El Cuentacuentos',
+                    ViewPage::make(title: 'El Cuentacuentos', alias: 'cuentos-numeros')
+                        ->setContentView(contentView: 'Tema2.CuentosNumeros')  // Este es tu archivo para el Tema 2
+                        ->setBreadcrumbs([
+                            '#' => 'El Cuentacuentos'
+                        ])
+                )->icon('heroicons.outline.book-open'),
+                MenuItem::make(
+                    'Explora y Aprende',
+                    ViewPage::make(title: 'Explora y Aprende', alias: 'explora-numeros')
+                        ->setContentView(contentView: 'Tema2.ExploraNumeros')  // Este es tu archivo para el Tema 2
+                        ->setBreadcrumbs([
+                            '#' => 'Explora y Aprende'
+                        ])
+                )->icon('heroicons.outline.viewfinder-circle'),
+                MenuItem::make(
+                    'Juguemos',
+                    ViewPage::make(title: 'Juguemos', alias: 'juguemos-numeros')
+                        ->setContentView(contentView: 'Tema2.JuguemosNumeros')  // Este es tu archivo para el Tema 2
+                        ->setBreadcrumbs([
+                            '#' => 'Juguemos'
+                        ])
+                )->icon('heroicons.outline.puzzle-piece'),
+            ])->icon('heroicons.calculator'),
 
-        MenuGroup::make('Los Colores', [
-            MenuItem::make('Diversión en Pantalla', '/los-colores/diversion'),
-            MenuItem::make('Tarjetas Mágicas', '/los-colores/tarjetas'),
-            MenuItem::make('El Cuentacuentos', '/los-colores/cuentacuentos'),
-            MenuItem::make('Explora y Aprende', '/los-colores/explora'),
-            MenuItem::make('Juguemos', '/los-colores/juguemos'),
-            ])->icon('heroicons.outline.academic-cap'),
+            MenuGroup::make('Los Colores', [
+                MenuItem::make(
+                    'Diversión en Pantalla',
+                    ViewPage::make(title: 'Diversión en Pantalla', alias: 'colores')
+                        ->setContentView(contentView: 'Tema3.Colores')  // Este es tu archivo para el Tema 3
+                        ->setBreadcrumbs([
+                            '#' => 'Diversión en Pantalla'
+                        ])
+                )->icon('heroicons.outline.play'),
+                MenuItem::make(
+                    'Tarjetas Mágicas',
+                    ViewPage::make(title: 'Tarjetas Mágicas', alias: 'tarjetas-colores')
+                        ->setContentView(contentView: 'Tema3.TarjetasColores')  // Este es tu archivo para el Tema 3
+                        ->setBreadcrumbs([
+                            '#' => 'Tarjetas Mágicas'
+                        ])
+                )->icon('heroicons.outline.rectangle-stack'),
+                MenuItem::make(
+                    'El Cuentacuentos',
+                    ViewPage::make(title: 'El Cuentacuentos', alias: 'cuentos-colores')
+                        ->setContentView(contentView: 'Tema3.CuentosColores')  // Este es tu archivo para el Tema 3
+                        ->setBreadcrumbs([
+                            '#' => 'El Cuentacuentos'
+                        ])
+                )->icon('heroicons.outline.book-open'),
+                MenuItem::make(
+                    'Explora y Aprende',
+                    ViewPage::make(title: 'Explora y Aprende', alias: 'explora-colores')
+                        ->setContentView(contentView: 'Tema3.ExploraColores')  // Este es tu archivo para el Tema 3
+                        ->setBreadcrumbs([
+                            '#' => 'Explora y Aprende'
+                        ])
+                )->icon('heroicons.outline.viewfinder-circle'),
+                MenuItem::make(
+                    'Juguemos',
+                    ViewPage::make(title: 'Juguemos', alias: 'juguemos-colores')
+                        ->setContentView(contentView: 'Tema3.JuguemosColores')  // Este es tu archivo para el Tema 3
+                        ->setBreadcrumbs([
+                            '#' => 'Juguemos'
+                        ])
+                )->icon('heroicons.outline.puzzle-piece'),
+            ])->icon('heroicons.paint-brush'),
 
-        MenuGroup::make('Miembros de la Familia', [
-            MenuItem::make('Diversión en Pantalla', '/miembros-familia/diversion'),
-            MenuItem::make('Tarjetas Mágicas', '/miembros-familia/tarjetas'),
-            MenuItem::make('El Cuentacuentos', '/miembros-familia/cuentacuentos'),
-            MenuItem::make('Explora y Aprende', '/miembros-familia/explora'),
-            MenuItem::make('Juguemos', '/miembros-familia/juguemos'),
-            ])->icon('heroicons.outline.academic-cap'),
+            MenuGroup::make('La Familia', [
+                MenuItem::make(
+                    'Diversión en Pantalla',
+                    ViewPage::make(title: 'Diversión en Pantalla', alias: 'familia')
+                        ->setContentView(contentView: 'Tema4.Familia')  // Este es tu archivo para el Tema de Miembros de la Familia
+                        ->setBreadcrumbs([
+                            '#' => 'Diversión en Pantalla'
+                        ])
+                )->icon('heroicons.outline.play'),
+                MenuItem::make(
+                    'Tarjetas Mágicas',
+                    ViewPage::make(title: 'Tarjetas Mágicas', alias: 'tarjetas-familia')
+                        ->setContentView(contentView: 'Tema4.TarjetasFamilia')  // Apunta al archivo "Tarjetas" en la carpeta "Familia"
+                        ->setBreadcrumbs([
+                            '#' => 'Tarjetas Mágicas'
+                        ])
+                )->icon('heroicons.outline.swatch'),
+                MenuItem::make(
+                    'El Cuentacuentos',
+                    ViewPage::make(title: 'El Cuentacuentos', alias: 'cuentos-familia')
+                        ->setContentView(contentView: 'Tema4.CuentosFamilia')  // Apunta al archivo "Cuentacuentos" en la carpeta "Familia"
+                        ->setBreadcrumbs([
+                            '#' => 'El Cuentacuentos'
+                        ])
+                )->icon('heroicons.outline.book-open'),
+                MenuItem::make(
+                    'Explora y Aprende',
+                    ViewPage::make(title: 'Explora y Aprende', alias: 'explora-familia')
+                        ->setContentView(contentView: 'Tema4.ExploraFamilia')  // Apunta al archivo "ExploraFamilia" en la carpeta "Familia"
+                        ->setBreadcrumbs([
+                            '#' => 'Explora y Aprende'
+                        ])
+                )->icon('heroicons.outline.viewfinder-circle'),
+                MenuItem::make(
+                    'Juguemos',
+                    ViewPage::make(title: 'Juguemos', alias: 'juguemos-familia')
+                        ->setContentView(contentView: 'Tema4.JuguemosFamilia')  // Apunta al archivo "JuguemosFamilia" en la carpeta "Familia"
+                        ->setBreadcrumbs([
+                            '#' => 'Juguemos'
+                        ])
+                )->icon('heroicons.outline.puzzle-piece'),
+            ])->icon('heroicons.user-group'),
 
-        MenuGroup::make('Verbos y Pronombres', [
-            MenuItem::make('Diversión en Pantalla', '/verbos-pronombres/diversion'),
-            MenuItem::make('Tarjetas Mágicas', '/verbos-pronombres/tarjetas'),
-            MenuItem::make('El Cuentacuentos', '/verbos-pronombres/cuentacuentos'),
-            MenuItem::make('Explora y Aprende', '/verbos-pronombres/explora'),
-            MenuItem::make('Juguemos', '/verbos-pronombres/juguemos'),
-            ])->icon('heroicons.outline.academic-cap'),
+            MenuGroup::make('Verbos y Pronombres', [
+                MenuItem::make(
+                    'Diversión en Pantalla',
+                    ViewPage::make(title: 'Diversión en Pantalla', alias: 'verbos-pronombres')
+                        ->setContentView(contentView: 'Tema5.Verbos')  // Apunta al archivo "DiversionVerbos" en la carpeta "Tema5"
+                        ->setBreadcrumbs([
+                            '#' => 'Diversión en Pantalla'
+                        ])
+                )->icon('heroicons.outline.play'),
+                MenuItem::make(
+                    'Tarjetas Mágicas',
+                    ViewPage::make(title: 'Tarjetas Mágicas', alias: 'tarjetas-verbos')
+                        ->setContentView(contentView: 'Tema5.TarjetasVerbos')  // Apunta al archivo "TarjetasVerbos" en la carpeta "Tema5"
+                        ->setBreadcrumbs([
+                            '#' => 'Tarjetas Mágicas'
+                        ])
+                )->icon('heroicons.outline.rectangle-stack'),
+                MenuItem::make(
+                    'El Cuentacuentos',
+                    ViewPage::make(title: 'El Cuentacuentos', alias: 'cuentos-verbos')
+                        ->setContentView(contentView: 'Tema5.CuentosVerbos')  // Apunta al archivo "CuentacuentosVerbos" en la carpeta "Tema5"
+                        ->setBreadcrumbs([
+                            '#' => 'El Cuentacuentos'
+                        ])
+                )->icon('heroicons.outline.book-open'),
+                MenuItem::make(
+                    'Explora y Aprende',
+                    ViewPage::make(title: 'Explora y Aprende', alias: 'explora-verbos')
+                        ->setContentView(contentView: 'Tema5.ExploraVerbos')  // Apunta al archivo "ExploraAprendeVerbos" en la carpeta "Tema5"
+                        ->setBreadcrumbs([
+                            '#' => 'Explora y Aprende'
+                        ])
+                )->icon('heroicons.outline.viewfinder-circle'),
+                MenuItem::make(
+                    'Juguemos',
+                    ViewPage::make(title: 'Juguemos', alias: 'juguemos-verbos')
+                        ->setContentView(contentView: 'Tema5.JuguemosVerbos')  // Apunta al archivo "JuguemosVerbos" en la carpeta "Tema5"
+                        ->setBreadcrumbs([
+                            '#' => 'Juguemos'
+                        ])
+                )->icon('heroicons.outline.puzzle-piece'),
+            ])->icon('heroicons.users'),
 
-        MenuGroup::make('Alimentos y Bebidas', [
-            MenuItem::make('Diversión en Pantalla', '/alimentos-bebidas/diversion'),
-            MenuItem::make('Tarjetas Mágicas', '/alimentos-bebidas/tarjetas'),
-            MenuItem::make('El Cuentacuentos', '/alimentos-bebidas/cuentacuentos'),
-            MenuItem::make('Explora y Aprende', '/alimentos-bebidas/explora'),
-            MenuItem::make('Juguemos', '/alimentos-bebidas/juguemos'),
-            ])->icon('heroicons.outline.academic-cap'),
+            MenuGroup::make('Alimentos y Bebidas', [
+                MenuItem::make(
+                    'Diversión en Pantalla',
+                    ViewPage::make(title: 'Diversión en Pantalla', alias: 'alimentos')
+                        ->setContentView(contentView: 'Tema6.Alimentos')  // Apunta al archivo "DiversionAlimentos" en la carpeta "Tema6"
+                        ->setBreadcrumbs([
+                            '#' => 'Diversión en Pantalla'
+                        ])
+                )->icon('heroicons.outline.play'),
+                MenuItem::make(
+                    'Tarjetas Mágicas',
+                    ViewPage::make(title: 'Tarjetas Mágicas', alias: 'tarjetas-alimentos')
+                        ->setContentView(contentView: 'Tema6.TarjetasAlimentos')  // Apunta al archivo "TarjetasAlimentos" en la carpeta "Tema6"
+                        ->setBreadcrumbs([
+                            '#' => 'Tarjetas Mágicas'
+                        ])
+                )->icon('heroicons.outline.swatch'),
+                MenuItem::make(
+                    'El Cuentacuentos',
+                    ViewPage::make(title: 'El Cuentacuentos', alias: 'cuentos-alimentos')
+                        ->setContentView(contentView: 'Tema6.CuentosAlimentos')  // Apunta al archivo "CuentacuentosAlimentos" en la carpeta "Tema6"
+                        ->setBreadcrumbs([
+                            '#' => 'El Cuentacuentos'
+                        ])
+                )->icon('heroicons.outline.book-open'),
+                MenuItem::make(
+                    'Explora y Aprende',
+                    ViewPage::make(title: 'Explora y Aprende', alias: 'explora-alimentos')
+                        ->setContentView(contentView: 'Tema6.ExploraAlimentos')  // Apunta al archivo "ExploraAlimentos" en la carpeta "Tema6"
+                        ->setBreadcrumbs([
+                            '#' => 'Explora y Aprende'
+                        ])
+                )->icon('heroicons.outline.viewfinder-circle'),
+                MenuItem::make(
+                    'Juguemos',
+                    ViewPage::make(title: 'Juguemos', alias: 'juguemos-alimentos')
+                        ->setContentView(contentView: 'Tema6.JuguemosAlimentos')  // Apunta al archivo "JuguemosAlimentos" en la carpeta "Tema6"
+                        ->setBreadcrumbs([
+                            '#' => 'Juguemos'
+                        ])
+                )->icon('heroicons.outline.puzzle-piece'),
+            ])->icon('heroicons.cake'),
 
-        MenuGroup::make('Días de la Semana', [
-            MenuItem::make('Diversión en Pantalla', '/dias-semana/diversion'),
-            MenuItem::make('Tarjetas Mágicas', '/dias-semana/tarjetas'),
-            MenuItem::make('El Cuentacuentos', '/dias-semana/cuentacuentos'),
-            MenuItem::make('Explora y Aprende', '/dias-semana/explora'),
-            MenuItem::make('Juguemos', '/dias-semana/juguemos'),
-            ])->icon('heroicons.outline.academic-cap'),
+            MenuGroup::make('Días de la Semana', [
+                MenuItem::make(
+                    'Diversión en Pantalla',
+                    ViewPage::make(title: 'Diversión en Pantalla', alias: 'dias')
+                        ->setContentView(contentView: 'Tema7.Dias')  // Apunta al archivo "DiversionDias" en la carpeta "Tema7"
+                        ->setBreadcrumbs([
+                            '#' => 'Diversión en Pantalla'
+                        ])
+                )->icon('heroicons.outline.play'),
+                MenuItem::make(
+                    'Tarjetas Mágicas',
+                    ViewPage::make(title: 'Tarjetas Mágicas', alias: 'tarjetas-dias')
+                        ->setContentView(contentView: 'Tema7.TarjetasDias')  // Apunta al archivo "TarjetasDias" en la carpeta "Tema7"
+                        ->setBreadcrumbs([
+                            '#' => 'Tarjetas Mágicas'
+                        ])
+                )->icon('heroicons.outline.rectangle-stack'),
+                MenuItem::make(
+                    'El Cuentacuentos',
+                    ViewPage::make(title: 'El Cuentacuentos', alias: 'cuentos-dias')
+                        ->setContentView(contentView: 'Tema7.CuentosDias')  // Apunta al archivo "CuentacuentosDias" en la carpeta "Tema7"
+                        ->setBreadcrumbs([
+                            '#' => 'El Cuentacuentos'
+                        ])
+                )->icon('heroicons.outline.book-open'),
+                MenuItem::make(
+                    'Explora y Aprende',
+                    ViewPage::make(title: 'Explora y Aprende', alias: 'explora-dias')
+                        ->setContentView(contentView: 'Tema7.ExploraDias')  // Apunta al archivo "ExploraDias" en la carpeta "Tema7"
+                        ->setBreadcrumbs([
+                            '#' => 'Explora y Aprende'
+                        ])
+                )->icon('heroicons.outline.viewfinder-circle'),
+                MenuItem::make(
+                    'Juguemos',
+                    ViewPage::make(title: 'Juguemos', alias: 'juguemos-dias')
+                        ->setContentView(contentView: 'Tema7.JuguemosDias')  // Apunta al archivo "JuguemosDias" en la carpeta "Tema7"
+                        ->setBreadcrumbs([
+                            '#' => 'Juguemos'
+                        ])
+                )->icon('heroicons.outline.puzzle-piece'),
+            ])->icon('heroicons.calendar-days'),
 
-        MenuGroup::make('Trabajos y Oficios', [
-            MenuItem::make('Diversión en Pantalla', '/trabajos-oficios/diversion'),
-            MenuItem::make('Tarjetas Mágicas', '/trabajos-oficios/tarjetas'),
-            MenuItem::make('El Cuentacuentos', '/trabajos-oficios/cuentacuentos'),
-            MenuItem::make('Explora y Aprende', '/trabajos-oficios/explora'),
-            MenuItem::make('Juguemos', '/trabajos-oficios/juguemos'),
-            ])->icon('heroicons.outline.academic-cap'),
+            MenuGroup::make('Trabajos y Oficios', [
+                MenuItem::make(
+                    'Diversión en Pantalla',
+                    ViewPage::make(title: 'Diversión en Pantalla', alias: 'trabajos')
+                        ->setContentView(contentView: 'Tema8.Trabajos')  // Apunta al archivo "DiversionTrabajos" en la carpeta "Tema8"
+                        ->setBreadcrumbs([
+                            '#' => 'Diversión en Pantalla'
+                        ])
+                )->icon('heroicons.outline.play'),
+                MenuItem::make(
+                    'Tarjetas Mágicas',
+                    ViewPage::make(title: 'Tarjetas Mágicas', alias: 'tarjetas-trabajos')
+                        ->setContentView(contentView: 'Tema8.TarjetasTrabajos')  // Apunta al archivo "TarjetasTrabajos" en la carpeta "Tema8"
+                        ->setBreadcrumbs([
+                            '#' => 'Tarjetas Mágicas'
+                        ])
+                )->icon('heroicons.outline.swatch'),
+                MenuItem::make(
+                    'El Cuentacuentos',
+                    ViewPage::make(title: 'El Cuentacuentos', alias: 'cuentos-trabajos')
+                        ->setContentView(contentView: 'Tema8.CuentosTrabajos')  // Apunta al archivo "CuentacuentosTrabajos" en la carpeta "Tema8"
+                        ->setBreadcrumbs([
+                            '#' => 'El Cuentacuentos'
+                        ])
+                )->icon('heroicons.outline.book-open'),
+                MenuItem::make(
+                    'Explora y Aprende',
+                    ViewPage::make(title: 'Explora y Aprende', alias: 'explora-trabajos')
+                        ->setContentView(contentView: 'Tema8.ExploraTrabajos')  // Apunta al archivo "ExploraAprendeTrabajos" en la carpeta "Tema8"
+                        ->setBreadcrumbs([
+                            '#' => 'Explora y Aprende'
+                        ])
+                )->icon('heroicons.outline.viewfinder-circle'),
+                MenuItem::make(
+                    'Juguemos',
+                    ViewPage::make(title: 'Juguemos', alias: 'juguemos-trabajos')
+                        ->setContentView(contentView: 'Tema8.JuguemosTrabajos')  // Apunta al archivo "JuguemosTrabajos" en la carpeta "Tema8"
+                        ->setBreadcrumbs([
+                            '#' => 'Juguemos'
+                        ])
+                )->icon('heroicons.outline.puzzle-piece'),
+            ])->icon('heroicons.briefcase'),
+
+            MenuDivider::make(),
+            MenuItem::make('¡Desafío del Aprendizaje!', new PlayerResource)->icon('heroicons.academic-cap'),
+            /* 
+            MenuItem::make('¡Desafío del Aprendizaje!', ViewPage::make(title: 'Desafío del Aprendizaje', alias: 'desafio-aprendizaje')
+    ->setContentView(contentView: 'Prueba.DesafioAprendizaje') // Puedes agregar el archivo de vista que corresponda
+    ->setBreadcrumbs([
+        '#' => '¡Desafío del Aprendizaje!'
+    ])
+)->icon('heroicons.academic-cap'),
+            */
         ];
     }
 
@@ -148,7 +451,7 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                     800 => '#300135',
                     900 => 'rgb(15, 23, 42)',
                 ],
- 
+
                 'success-bg' => 'rgb(0, 170, 0)',
                 'success-text' => 'rgb(255, 255, 255)',
                 'warning-bg' => 'rgb(255, 220, 42)',

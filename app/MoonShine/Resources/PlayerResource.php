@@ -26,7 +26,7 @@ class PlayerResource extends ModelResource
 {
     protected string $model = Player::class;
 
-    protected string $title = 'Players';
+    protected string $title = 'Estudiantes';
 
     protected bool $createInModal = true;
     protected bool $editInModal = true;
@@ -47,9 +47,9 @@ class PlayerResource extends ModelResource
         return [
             Block::make([
                 ID::make()->sortable(),
-                Text::make('Name', 'name')->required(),
-                BelongsTo::make('Team', 'teams', 'name'),
-                Text::make('Position', 'position')->required()
+                Text::make('Nombre', 'name')->required(),
+                BelongsTo::make('Curso', 'teams', 'name'),
+                Text::make('Paralelo', 'position')->required()
             ]),
         ];
     }
@@ -72,12 +72,12 @@ class PlayerResource extends ModelResource
 		return [
             Grid::make([
                 Column::make([
-                    ValueMetric::make('Players Count')
+                    ValueMetric::make('Estudiantes Registrados')
                     ->value($totalPlayers)
                     ->icon('heroicons.user'),
                 ])->columnSpan(6),
                 Column::make([
-                    ValueMetric::make('Teams Count')
+                    ValueMetric::make('Cursos Registrados')
                     ->value($totalTeams)
                     ->icon('heroicons.users')
                     ->withAttributes([
