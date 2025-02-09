@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     //return view('welcome');
-    return redirect('/admin');
+    return view('index'); // Esto muestra la vista index.blade.php
+    //return redirect('/admin');
 });
 
 Route::get('/alfabeto', function () {
