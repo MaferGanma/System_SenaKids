@@ -15,11 +15,11 @@
   <div class="global">
     <div class="container">
       <div class="flipbook">
-        <div class="hard">My Pokemon Gallery <small>~ HankTheTank</small></div>
+        <div class="hard">HOLIS <small>HOLIS2</small></div>
         <div class="hard"></div>
         <div>
-          <small>Lets Look At Some Amazing Pokemon ❤️</small>
-          <small>Gotta Catch 'Em All</small>
+          <small>HOLISX3 ❤️</small>
+          <small>HOLIS4</small>
         </div>
         <div>
           <img src="{{ asset('images/img-1.png') }}" alt="" />
@@ -40,6 +40,14 @@
         <div>
           <img src="{{ asset('images/img-5.png') }}" alt="" />
           <small> Darkrai </small>
+        </div>
+        <div>
+          <img src="{{ asset('images/img-4.png') }}" alt="" />
+          <small> Mew </small>
+        </div>
+        <div>
+          <img src="{{ asset('images/img-4.png') }}" alt="" />
+          <small> Mew </small>
         </div>
         <div class="hard"></div>
         <div class="hard">Thank You <small>~ HankTheTank</small></div>

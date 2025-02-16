@@ -1,3 +1,4 @@
+/*Ruta del Aprendizaje*/
 /* Importar la fuente desde Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap');
 /* @import url('https://fonts.googleapis.com/css?family=Oswald'); */
@@ -33,7 +34,7 @@
     padding: 20px;
     background: #fff;
     border-radius: .7em;
-    opacity: 0.6;
+    opacity: 0.9;
     display: flex;
     flex-direction: column; /* Asegura que el contenido se apile de arriba a abajo */
     justify-content: space-between; /* Asegura que haya espacio entre el h2 y p */
@@ -72,47 +73,47 @@
     grid-area: 3 / 3 / 4 / 4;
     background-image: url('/images/img-1.png');
 }
-
+/*Desafio del Aprendizaje*/
 .item3 {
     grid-area: 4 / 1 / 5 / 4;
-    background-image: url('/images/card1.jpg');
+    background-image: url('/images/CardDesafio.jpg');
 }
-
+/*Abecedario*/
 .item4 {
     grid-area: 1 / 3 / 2 / 5;
-    background-image: url('/images/card1.jpg');
+    background-image: url('/images/Tema1_Alfabeto/CardAbc.jpg');
 }
 
 .item5 {
     grid-area: 2 / 4 / 3 / 5;
-    background-image: url('/images/card1.jpg');
+    background-image: url('/images/Tema3_Colores/CardColors.jpg');
 }
 
 .item6 {
     grid-area: 3 / 4 / 4 / 5;
     background-image: url('/images/card1.jpg');
 }
-
+/*Alimentos y Bebidas*/
 .item7 {
     grid-area: 3 / 4 / 5 / 5;
-    background-image: url('/images/card1.jpg');
+    background-image: url('/images/Tema6_Alimentos/CardAlimentos.jpg');
 }
-
+/*Los Numeros*/
 .item8 {
     grid-area: 1 / 5 / 2 / 6;
-    background-image: url('/images/card1.jpg');
+    background-image: url('/images/Tema2_Numeros/CardNum.jpg');
 }
-
+/*La Familia*/
 .item9 {
     grid-area: 2 / 5 / 3 / 6;
-    background-image: url('/images/card1.jpg');
+    background-image: url('/images/Tema4_Familia/CardFamily.jpg');
 }
-
+/*Semana*/
 .item10 {
     grid-area: 3 / 5 / 4 / 6;
     background-image: url('/images/card1.jpg');
 }
-
+/*Trabajos*/
 .item11 {
     grid-area: 4 / 5 / 5 / 6;
     background-image: url('/images/card1.jpg'); /* Imagen de fondo para card 11 */

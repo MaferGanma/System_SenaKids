@@ -416,7 +416,16 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
             ])->icon('heroicons.briefcase'),
 
             MenuDivider::make(),
-            MenuItem::make('¡Desafío del Aprendizaje!', new PlayerResource)->icon('heroicons.academic-cap'),
+            // MenuItem::make('¡Desafío del Aprendizaje!', new PlayerResource)->icon('heroicons.academic-cap'),
+            
+            MenuItem::make(
+                '¡Desafío del Aprendizaje!',
+                ViewPage::make(title: '¡Desafío del Aprendizaje!', alias: 'desafio-aprendizaje')
+                    ->setContentView(contentView: 'Desafio_Aprendizaje.instrucciones') // Apunta al archivo "instrucciones" en la carpeta "Desafio_Aprendizaje"
+                    ->setBreadcrumbs([
+                        '#' => 'Desafío del Aprendizaje'
+                    ])
+            )->icon('heroicons.academic-cap'),            
             /* 
             MenuItem::make('¡Desafío del Aprendizaje!', ViewPage::make(title: 'Desafío del Aprendizaje', alias: 'desafio-aprendizaje')
     ->setContentView(contentView: 'Prueba.DesafioAprendizaje') // Puedes agregar el archivo de vista que corresponda

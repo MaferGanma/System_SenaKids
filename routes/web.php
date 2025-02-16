@@ -11,3 +11,21 @@ Route::get('/', function () {
 Route::get('/alfabeto', function () {
     return view('Tema1.Alfabeto');  // Esta es la vista que se mostrará
 })->name('tema1.alfabeto');
+
+//Juego_Final
+
+Route::get('/indexjuego', function () {
+    return view('Desafio_Aprendizaje.index'); // Vista de inicio
+})->name('indexjuego');
+
+Route::get('/menu', function () {
+    return view('Desafio_Aprendizaje.menu'); // Vista de selección de categoría
+});
+
+Route::get('/juego', function () {
+    return view('Desafio_Aprendizaje.juego'); // Vista de juego
+});
+
+Route::get('/final', function () {
+    return view('Desafio_Aprendizaje.final'); // Vista de resultado final
+});
