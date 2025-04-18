@@ -30,9 +30,108 @@ Route::get('/final', function () {
     return view('Desafio_Aprendizaje.final'); // Vista de resultado final
 });
 
+
+
 Route::get('/tema1/juego1', function () {
-    return view('Tema1.Juego1Tema1');  // Apunta a la vista 
+    return view('Tema1.Juego1');  // Apunta a la vista 
 });
+
+Route::get('/tema2/juego1', function () {
+    return view('Tema2.Juego1');  // Apunta a la vista 
+});
+
+Route::get('/tema3/juego1', function () {
+    return view('Tema3.Juego1');  // Apunta a la vista 
+});
+
+Route::get('/tema4/juego1', function () {
+    return view('Tema4.Juego1');  // Apunta a la vista 
+});
+
+Route::get('/tema5/juego1', function () {
+    return view('Tema5.Juego1');  // Apunta a la vista 
+});
+
+Route::get('/tema6/juego1', function () {
+    return view('Tema6.Juego1');  // Apunta a la vista 
+});
+
+Route::get('/tema7/juego1', function () {
+    return view('Tema7.Juego1');  // Apunta a la vista 
+});
+
+Route::get('/tema8/juego1', function () {
+    return view('Tema8.Juego1');  // Apunta a la vista Juego1-Tema8
+});
+
+
+
+Route::get('/tema1/juego2', function () {
+    return view('Tema1.Juego2');  // Apunta a la vista Juego2-Tema1
+});
+
+Route::get('/tema2/juego2', function () {
+    return view('Tema2.Juego2');  // Apunta a la vista Juego2-Tema2
+});
+
+Route::get('/tema3/juego2', function () {
+    return view('Tema3.Juego2');  // Apunta a la vista Juego2-Tema3
+});
+
+Route::get('/tema4/juego2', function () {
+    return view('Tema4.Juego2');  // Apunta a la vista Juego2-Tema4
+});
+
+Route::get('/tema5/juego2', function () {
+    return view('Tema5.Juego2');  // Apunta a la vista Juego2-Tema5
+});
+
+Route::get('/tema6/juego2', function () {
+    return view('Tema6.Juego2');  // Apunta a la vista Juego2-Tema6
+});
+
+Route::get('/tema7/juego2', function () {
+    return view('Tema7.Juego2');  // Apunta a la vista Juego2-Tema7
+});
+
+Route::get('/tema8/juego2', function () {
+    return view('Tema8.Juego2');  // Apunta a la vista Juego2-Tema8
+});
+
+
+
+Route::get('/tema1/juego3', function () {
+    return view('Tema1.Juego3');  // Apunta a la vista Juego3-Tema1
+});
+
+Route::get('/tema2/juego3', function () {
+    return view('Tema2.Juego3');  // Apunta a la vista Juego3-Tema2
+});
+
+Route::get('/tema3/juego3', function () {
+    return view('Tema3.Juego3');  // Apunta a la vista Juego3-Tema3
+});
+
+Route::get('/tema4/juego3', function () {
+    return view('Tema4.Juego3');  // Apunta a la vista Juego3-Tema4
+});
+
+Route::get('/tema5/juego3', function () {
+    return view('Tema5.Juego3');  // Apunta a la vista Juego3-Tema5
+});
+
+Route::get('/tema6/juego3', function () {
+    return view('Tema6.Juego3');  // Apunta a la vista Juego3-Tema6
+});
+
+Route::get('/tema7/juego3', function () {
+    return view('Tema7.Juego3');  // Apunta a la vista Juego3-Tema7
+});
+
+Route::get('/tema8/juego3', function () {
+    return view('Tema8.Juego3');  // Apunta a la vista Juego3-Tema8
+});
+
 
 Route::get('/tema1/quizz', function () {
     return view('Tema1.MiniQuizz1');  // Vista creada en resources/views/Tema1/MiniQuizz1.blade.php

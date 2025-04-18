@@ -73,7 +73,7 @@
         <span>¡</span><span>J</span><span>u</span><span>g</span><span>u</span><span>e</span><span>m</span><span>o</span><span>s</span><span>!</span>
     </div>
     <div class="container">
-        <a href="#">
+        <a href="{{ url('/tema7/juego3') }}">
             <div class="card">
                 <div class="wrapper">
                     <img src="{{ asset('images/Tema5_Verbos/PuzleCard.png')}}" class="cover-image" />
@@ -83,7 +83,7 @@
             </div>
         </a>
 
-        <a href="#">
+        <a href="{{ url('/tema7/juego2') }}">
             <div class="card">
                 <div class="wrapper">
                     <img src="{{ asset('images/Tema5_Verbos/MemoCard.jpg')}}" class="cover-image" />
@@ -93,7 +93,7 @@
             </div>
         </a>
 
-        <a href="{{ url('/tema1/juego1') }}">
+        <a href="{{ url('/tema7/juego1') }}">
             <div class="card">
                 <div class="wrapper">
                     <img src="{{ asset('images/Tema5_Verbos/FraseCard.jpg')}}" class="cover-image" />
@@ -103,7 +103,7 @@
             </div>
         </a>
 
-        <a href="{{ url('/tema1/quizz') }}">
+        <a href="{{ url('/tema7/quizz') }}">
             <div class="card">
                 <div class="wrapper">
                     <img src="{{ asset('images/Tema5_Verbos/Cards.jpg')}}" class="cover-image" />

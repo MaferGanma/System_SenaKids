@@ -93,7 +93,7 @@
             </div>
         </a>
 
-        <a href="{{ url('/tema1/juego1') }}">
+        <a href="{{ url('/tema2/juego1') }}">
             <div class="card">
                 <div class="wrapper">
                     <img src="{{ asset('images/Tema5_Verbos/FraseCard.jpg')}}" class="cover-image" />

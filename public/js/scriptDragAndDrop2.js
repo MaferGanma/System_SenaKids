@@ -1,243 +1,320 @@
-// Initial References
-let draggableObjects;
-let dropPoints;
-const startButton = document.getElementById("start");
-const result = document.getElementById("result");
-const controls = document.querySelector(".controls-container");
-const dragContainer = document.querySelector(".draggable-objects");
-const dropContainer = document.querySelector(".drop-points");
-const data = [
-  "belgium",
-  "bhutan",
-  "brazil",
-  "china",
-  "cuba",
-  "ecuador",
-  "georgia",
-  "germany",
-  "hong-kong",
-  "india",
-  "iran",
-  "myanmar",
-  "norway",
-  "spain",
-  "sri-lanka",
-  "sweden",
-  "switzerland",
-  "united-states",
-  "uruguay",
-  "wales",
+const brands = [
+  {
+    iconName: "letraZ",
+    brandName: "Letra Z",
+    imgUrl: "/images/Tema1_Alfabeto/abecedario-26.jpg" 
+  },
+  {
+    iconName: "letraY",
+    brandName: "Letra Y",
+    imgUrl: "/images/Tema1_Alfabeto/abecedario-25.jpg"
+  },
+  {
+    iconName: "letraJ",
+    brandName: "Letra J",
+    imgUrl: "/images/Tema1_Alfabeto/abecedario-10.jpg"
+  },
+  {
+    iconName: "letraF",
+    brandName: "Letra F",
+    imgUrl: "/images/Tema1_Alfabeto/abecedario-06.jpg"
+  },
+  {
+    iconName: "letraO",
+    brandName: "Letra O",
+    imgUrl: "/images/Tema1_Alfabeto/abecedario-15.jpg"
+  },
+  {
+    iconName: "letraG",
+    brandName: "Letra G",
+    imgUrl: "/images/Tema1_Alfabeto/abecedario-07.jpg"
+  },
+  {
+    iconName: "letraD",
+    brandName: "Letra D",
+    imgUrl: "/images/Tema1_Alfabeto/abecedario-04.jpg"
+  },
+  {
+    iconName: "letraI",
+    brandName: "Letra I",
+    imgUrl: "/images/Tema1_Alfabeto/abecedario-09.jpg"
+  },
+  {
+    iconName: "letraB",
+    brandName: "Letra B",
+    imgUrl: "/images/Tema1_Alfabeto/abecedario-02.jpg"
+  },
+  {
+    iconName: "letraA",
+    brandName: "Letra A",
+    imgUrl: "/images/Tema1_Alfabeto/abecedario-01.jpg"
+  }
 ];
 
-let deviceType = "";
-let initialX = 0, initialY = 0;
-let currentElement = "";
-let moveElement = false;
-let count = 0;
-let startTime, endTime, timerInterval;
+let correct = 0;
+let total = 0;
+const totalDraggableItems = 5;
+const totalMatchingPairs = 5;
 
-// Detect touch device
-const isTouchDevice = () => {
-  try {
-    document.createEvent("TouchEvent");
-    deviceType = "touch";
-    return true;
-  } catch (e) {
-    deviceType = "mouse";
-    return false;
-  }
-};
+const scoreSection = document.querySelector(".score");
+const correctSpan = scoreSection.querySelector(".correct");
+const totalSpan = scoreSection.querySelector(".total");
+const playAgainBtn = scoreSection.querySelector("#play-again-btn");
 
-// Random value from Array
-const randomValueGenerator = () => {
-  return data[Math.floor(Math.random() * data.length)];
-};
+const draggableItems = document.querySelector(".draggable-items");
+const matchingPairs = document.querySelector(".matching-pairs");
+let draggableElements;
+let droppableElements;
 
-// Win Game Display
-const stopGame = () => {
-  controls.classList.remove("hide");
-  startButton.classList.remove("hide");
+// 🎵 Sonidos
+const correctSound = new Audio("https://www.soundjay.com/button/sounds/button-4.mp3");
+const incorrectSound = new Audio("https://www.soundjay.com/button/sounds/button-10.mp3");
 
-  // Detener el intervalo del temporizador
-  clearInterval(timerInterval);
+initiateGame();
 
-  // Ocultar el cronómetro
-  document.getElementById("timeDisplay").style.display = "none"; 
+function initiateGame() {
+  const randomDraggableBrands = generateRandomItemsArray(totalDraggableItems, brands);
+  const randomDroppableBrands = totalMatchingPairs < totalDraggableItems
+    ? generateRandomItemsArray(totalMatchingPairs, randomDraggableBrands)
+    : randomDraggableBrands;
 
-  // Mostrar solo el tiempo total al finalizar el juego
-  const timeTaken = ((endTime - startTime) / 1000).toFixed(2); // Tiempo en segundos con 2 decimales
-  result.innerText = `Felicidades Ganaste! Tiempo: ${timeTaken} segundos`;
+  const sortedDroppableBrands = [...randomDroppableBrands].sort((a, b) =>
+    a.brandName.toLowerCase().localeCompare(b.brandName.toLowerCase())
+  );
 
-  // Guardar tiempo en base de datos
-  saveTimeToDatabase(timeTaken);
-};
-
-// Drag & Drop Functions
-function dragStart(e) {
-  if (isTouchDevice()) {
-    initialX = e.touches[0].clientX;
-    initialY = e.touches[0].clientY;
-    moveElement = true;
-    currentElement = e.target;
-  } else {
-    e.dataTransfer.setData("text", e.target.id);
-  }
-}
-
-// Events fired on the drop target
-function dragOver(e) {
-  e.preventDefault();
-}
-
-// For touchscreen movement
-const touchMove = (e) => {
-  if (moveElement) {
-    e.preventDefault();
-    let newX = e.touches[0].clientX;
-    let newY = e.touches[0].clientY;
-    let currentSelectedElement = document.getElementById(e.target.id);
-    currentSelectedElement.parentElement.style.top =
-      currentSelectedElement.parentElement.offsetTop - (initialY - newY) + "px";
-    currentSelectedElement.parentElement.style.left =
-      currentSelectedElement.parentElement.offsetLeft - (initialX - newX) + "px";
-    initialX = newX;
-    initialY - newY;
-  }
-};
-
-const drop = (e) => {
-  e.preventDefault();
-
-  if (isTouchDevice()) {
-    moveElement = false;
-    const currentDrop = document.querySelector(`div[data-id='${e.target.id}']`);
-    const currentDropBound = currentDrop.getBoundingClientRect();
-
-    if (
-      initialX >= currentDropBound.left &&
-      initialX <= currentDropBound.right &&
-      initialY >= currentDropBound.top &&
-      initialY <= currentDropBound.bottom
-    ) {
-      currentDrop.classList.add("dropped");
-      currentElement.classList.add("hide");
-      currentDrop.innerHTML = ``;
-      currentDrop.insertAdjacentHTML(
-        "afterbegin",
-        `<img src="/images/${currentElement.id}.png">`
-      );
-      count += 1;
-    }
-  } else {
-    const draggedElementData = e.dataTransfer.getData("text");
-    const droppableElementData = e.target.getAttribute("data-id");
-
-    if (draggedElementData === droppableElementData) {
-      const draggedElement = document.getElementById(draggedElementData);
-      e.target.classList.add("dropped");
-      draggedElement.classList.add("hide");
-      draggedElement.setAttribute("draggable", "false");
-      e.target.innerHTML = ``;
-      e.target.insertAdjacentHTML(
-        "afterbegin",
-        `<img src="/images/${draggedElementData}.png">`
-      );
-      count += 1;
-    }
+  for (let i = 0; i < randomDraggableBrands.length; i++) {
+    draggableItems.insertAdjacentHTML("beforeend", `
+      <img src="${randomDraggableBrands[i].imgUrl}" 
+           class="draggable" 
+           draggable="true" 
+           id="${randomDraggableBrands[i].iconName}" 
+           data-brand="${randomDraggableBrands[i].iconName}" />
+    `);
   }
 
-  if (count == 3) {
-    endTime = Date.now(); // Time when game is completed
-    stopGame();
-  }
-};
-
-// Creates flags and countries
-const creator = () => {
-  dragContainer.innerHTML = "";
-  dropContainer.innerHTML = "";
-  let randomData = [];
-  for (let i = 1; i <= 3; i++) {
-    let randomValue = randomValueGenerator();
-    if (!randomData.includes(randomValue)) {
-      randomData.push(randomValue);
-    } else {
-      i -= 1;
-    }
+  for (let i = 0; i < sortedDroppableBrands.length; i++) {
+    matchingPairs.insertAdjacentHTML("beforeend", `
+      <div class="matching-pair">
+        <span class="label">${sortedDroppableBrands[i].brandName}</span>
+        <span class="droppable" data-brand="${sortedDroppableBrands[i].iconName}"></span>
+      </div>
+    `);
   }
 
-  for (let i of randomData) {
-    const flagDiv = document.createElement("div");
-    flagDiv.classList.add("draggable-image");
-    flagDiv.setAttribute("draggable", true);
-    if (isTouchDevice()) {
-      flagDiv.style.position = "absolute";
-    }
-    flagDiv.innerHTML = `<img src="/images/${i}.png" id="${i}">`;  
-    dragContainer.appendChild(flagDiv);
-  }
+  draggableElements = document.querySelectorAll(".draggable");
+  droppableElements = document.querySelectorAll(".droppable");
 
-  randomData = randomData.sort(() => 0.5 - Math.random());
-  for (let i of randomData) {
-    const countryDiv = document.createElement("div");
-    countryDiv.innerHTML = `<div class='countries' data-id='${i}'>
-    ${i.charAt(0).toUpperCase() + i.slice(1).replace("-", " ")}
-    </div>`;
-    dropContainer.appendChild(countryDiv);
-  }
-};
-
-// Start Game
-startButton.addEventListener(
-  "click",
-  (startGame = async () => {
-    currentElement = "";
-    controls.classList.add("hide");
-    startButton.classList.add("hide");
-    await creator();
-    count = 0;
-    dropPoints = document.querySelectorAll(".countries");
-    draggableObjects = document.querySelectorAll(".draggable-image");
-
-    // Mostrar el cronómetro nuevamente
-    document.getElementById("timeDisplay").style.display = "block";
-
-    // Iniciar el contador en tiempo real
-    startTime = Date.now(); // Establecer el tiempo de inicio
-    timerInterval = setInterval(() => {
-      const currentTime = ((Date.now() - startTime) / 1000).toFixed(2); // Tiempo en segundos
-      document.getElementById("timeDisplay").innerText = `Tiempo: ${currentTime}s`;
-    }, 100);
-
-    draggableObjects.forEach((element) => {
-      element.addEventListener("dragstart", dragStart);
-      element.addEventListener("touchstart", dragStart);
-      element.addEventListener("touchend", drop);
-      element.addEventListener("touchmove", touchMove);
-    });
-
-    dropPoints.forEach((element) => {
-      element.addEventListener("dragover", dragOver);
-      element.addEventListener("drop", drop);
-    });
-  })
-);
-
-// Función para guardar el tiempo en la base de datos de Laravel
-const saveTimeToDatabase = (time) => {
-  fetch('/save-time', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-    },
-    body: JSON.stringify({ time: time })
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log('Tiempo guardado:', data);
-  })
-  .catch(error => {
-    console.error('Error al guardar el tiempo:', error);
+  draggableElements.forEach(elem => {
+    elem.addEventListener("dragstart", dragStart);
   });
-};
+
+  droppableElements.forEach(elem => {
+    elem.addEventListener("dragenter", dragEnter);
+    elem.addEventListener("dragover", dragOver);
+    elem.addEventListener("dragleave", dragLeave);
+    elem.addEventListener("drop", drop);
+  });
+}
+
+// Drag and Drop Handlers
+
+function dragStart(event) {
+  event.dataTransfer.setData("text", event.target.id);
+}
+
+function dragEnter(event) {
+  if (event.target.classList.contains("droppable") && !event.target.classList.contains("dropped")) {
+    event.target.classList.add("droppable-hover");
+  }
+}
+
+function dragOver(event) {
+  if (event.target.classList.contains("droppable") && !event.target.classList.contains("dropped")) {
+    event.preventDefault();
+  }
+}
+
+function dragLeave(event) {
+  if (event.target.classList.contains("droppable") && !event.target.classList.contains("dropped")) {
+    event.target.classList.remove("droppable-hover");
+  }
+}
+
+function drop(event) {
+  event.preventDefault();
+  event.target.classList.remove("droppable-hover");
+
+  const draggedId = event.dataTransfer.getData("text");
+  const dropTarget = event.target.getAttribute("data-brand");
+
+  const isCorrect = draggedId === dropTarget;
+  total++;
+
+  if (isCorrect) {
+    const draggedEl = document.getElementById(draggedId);
+    event.target.classList.add("dropped");
+    draggedEl.classList.add("dragged");
+    draggedEl.setAttribute("draggable", "false");
+
+    event.target.innerHTML = `
+      <img src="${draggedEl.src}" style="width: 100%; height: 100%; object-fit: contain;" />
+    `;
+    correct++;
+  }
+
+  updateScore();
+
+  if (correct === Math.min(totalMatchingPairs, totalDraggableItems)) {
+    playAgainBtn.style.display = "block";
+    setTimeout(() => {
+      playAgainBtn.classList.add("play-again-btn-entrance");
+    }, 200);
+
+    // 👇 Aquí mostramos el mensaje final con el puntaje
+    showEndMessage();
+  }
+}
+
+function updateScore() {
+  scoreSection.style.opacity = 0;
+  setTimeout(() => {
+    correctSpan.textContent = correct;
+    totalSpan.textContent = total;
+    scoreSection.style.opacity = 1;
+  }, 200);
+}
+
+// Restart Game
+
+playAgainBtn.addEventListener("click", () => {
+  playAgainBtn.classList.remove("play-again-btn-entrance");
+  correct = 0;
+  total = 0;
+  draggableItems.style.opacity = 0;
+  matchingPairs.style.opacity = 0;
+
+  setTimeout(() => {
+    scoreSection.style.opacity = 0;
+  }, 100);
+
+  setTimeout(() => {
+    playAgainBtn.style.display = "none";
+    draggableItems.innerHTML = "";
+    matchingPairs.innerHTML = "";
+    initiateGame();
+    updateScore();
+    draggableItems.style.opacity = 1;
+    matchingPairs.style.opacity = 1;
+    scoreSection.style.opacity = 1;
+  }, 500);
+});
+
+// Helper
+
+function generateRandomItemsArray(n, originalArray) {
+  let result = [];
+  let clone = [...originalArray];
+  n = Math.min(n, clone.length);
+
+  for (let i = 0; i < n; i++) {
+    const randIndex = Math.floor(Math.random() * clone.length);
+    result.push(clone[randIndex]);
+    clone.splice(randIndex, 1);
+  }
+
+  return result;
+}
+
+// Soporte para dispositivos táctiles
+let touchDraggedEl = null;
+
+function handleTouchStart(e) {
+  const target = e.target;
+  if (target.classList.contains("draggable") && !target.classList.contains("dragged")) {
+    touchDraggedEl = target;
+    touchDraggedEl.classList.add("dragging-touch");
+    e.preventDefault();
+  }
+}
+
+function handleTouchMove(e) {
+  if (!touchDraggedEl) return;
+
+  const touch = e.touches[0];
+  const x = touch.clientX;
+  const y = touch.clientY;
+
+  touchDraggedEl.style.position = "fixed";
+  touchDraggedEl.style.top = `${y - touchDraggedEl.offsetHeight / 2}px`;
+  touchDraggedEl.style.left = `${x - touchDraggedEl.offsetWidth / 2}px`;
+  touchDraggedEl.style.zIndex = 1000;
+
+  e.preventDefault();
+}
+
+function handleTouchEnd(e) {
+  if (!touchDraggedEl) return;
+
+  const touch = e.changedTouches[0];
+  const x = touch.clientX;
+  const y = touch.clientY;
+
+  touchDraggedEl.style.position = "";
+  touchDraggedEl.style.top = "";
+  touchDraggedEl.style.left = "";
+  touchDraggedEl.style.zIndex = "";
+  touchDraggedEl.classList.remove("dragging-touch");
+
+  const droppedEl = document.elementFromPoint(x, y);
+  if (droppedEl && droppedEl.classList.contains("droppable") && !droppedEl.classList.contains("dropped")) {
+    const draggedId = touchDraggedEl.id;
+    const dropTarget = droppedEl.getAttribute("data-brand");
+
+    const isCorrect = draggedId === dropTarget;
+    total++;
+
+    if (isCorrect) {
+      droppedEl.classList.add("dropped");
+      touchDraggedEl.classList.add("dragged");
+      touchDraggedEl.setAttribute("draggable", "false");
+
+      droppedEl.innerHTML = `
+        <img src="${touchDraggedEl.src}" style="width: 100%; height: 100%; object-fit: contain;" />
+      `;
+      correct++;
+    }
+
+    updateScore();
+
+    if (correct === Math.min(totalMatchingPairs, totalDraggableItems)) {
+      playAgainBtn.style.display = "block";
+      setTimeout(() => {
+        playAgainBtn.classList.add("play-again-btn-entrance");
+      }, 200);
+
+      // 👇 Mostrar mensaje final en mobile también
+      showEndMessage();
+    }
+  }
+
+  touchDraggedEl = null;
+}
+
+
+// Solo activar si es dispositivo táctil
+if ("ontouchstart" in window) {
+  document.addEventListener("touchstart", handleTouchStart, { passive: false });
+  document.addEventListener("touchmove", handleTouchMove, { passive: false });
+  document.addEventListener("touchend", handleTouchEnd);
+}
+
+
+function showEndMessage() {
+  const finalScore = document.getElementById("final-score");
+  finalScore.textContent = `Obtuviste ${correct} de ${total} intentos.`;
+  document.getElementById("end-message").style.display = "flex";
+}
+
+function closeEndMessage() {
+  document.getElementById("end-message").style.display = "none";
+}
