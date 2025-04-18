@@ -178,9 +178,9 @@
         </div>
       </div>
 
-      <input type="text" id="userId" value="{{ Auth::id() }}" style="display: none;">
-<button onclick="guardarPuntaje(100)" style="display: none;">Presionar</button>
+      <input type="hidden" id="userId" value="{{ Auth::id() }}">
 
+      <button onclick="guardarPuntaje(100)" style="display: none;">Presionar</button>
 
     <audio id="fondo" loop src="{{asset('sounds/musica.mp3')}}" type="audio/mpeg"/>
     <audio id="sonidos" src="" type="audio/mpeg"/>

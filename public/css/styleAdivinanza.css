@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+*{
+    box-sizing: border-box;
+    font-family: 'Open Sans';
+    
+}
+body {
+    background: linear-gradient(#9b58d1, #ae91c5);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px; /* Agregado para móviles */
+    margin: 0;
+}
+
+section {
+    width: 90%;
+    max-width: 500px;
+    background-color: #fff;
+    border: 7px solid #ae91c5;
+    color: #000;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+
+h2{
+    border-bottom: 1px solid #9b58d1;
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+#palabra{
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.letra {
+    height: 12vw;
+    width: 12vw;
+    max-height: 50px;
+    max-width: 50px;
+    border: 2px solid #9b58d1;
+    text-align: center;
+    margin: 4px;
+    font-weight: 600;
+    font-size: 6vw;
+    max-font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pintar{
+    background-color: #02bfa4;;
+}
+
+.pintarError{
+    background-color: red;
+}
+
+h3{
+    margin: 4px 0;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+h3 span{
+    font-style: italic;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto 0;
+    background-color: #02bfa4;
+    border: 2px solid #02bfa4;
+    border-radius: 20px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 12px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:hover {
+    background-color: #029f88;
+}
+
+/* Imagen del escritorio: visible solo en PC */
+#imagenEscritorio {
+    display: block;
+    margin-top: 30px;
+    text-align: center;
+}
+
+#imagenEscritorio img {
+    width: 300px;       /* Ancho fijo */
+    height: 200px;      /* Alto fijo */
+    object-fit: cover;  /* Recorta la imagen si no se ajusta perfectamente */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+#tecladoVirtual {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+}
+
+/* Ocultar teclado virtual por defecto */
+#tecladoVirtual {
+    display: none;
+}
+
+.mensaje {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    color: #333;
+    padding: 20px 30px;
+    border: 3px solid #02BFA4; /* Borde verde */
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    font-size: 20px;
+    font-weight: bold;
+    z-index: 9999;
+    text-align: center;
+    animation: fadeInOut 2.5s ease forwards;
+    min-width: 250px;
+}
+
+.mensaje span.emoji {
+    display: block;
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    10%, 90% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+}
+
+
+/* Mostrar solo en dispositivos móviles (pantallas menores a 768px) */
+@media (max-width: 768px) {
+#tecladoVirtual {
+    display: flex;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+}
+
+#tecladoVirtual button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: #9b58d1;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#tecladoVirtual button:hover {
+    background-color: #7a40b5;
+}
+
+#tecladoVirtual button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    color: #888;
+}
+
+#imagenEscritorio {
+        display: none;
+    }
+  
+#tecladoVirtual button {
+        width: 12vw;
+        height: 12vw;
+        font-size: 5vw;
+    }
+}
+
+@media (min-width: 769px) {
+    .letra {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+}

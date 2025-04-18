@@ -170,7 +170,7 @@ function drop(event) {
       playAgainBtn.classList.add("play-again-btn-entrance");
     }, 200);
 
-    // 👇 Aquí mostramos el mensaje final con el puntaje
+    // Aquí mostramos el mensaje final con el puntaje
     showEndMessage();
   }
 }
@@ -184,8 +184,36 @@ function updateScore() {
   }, 200);
 }
 
-// Restart Game
+// Nueva función para calcular el puntaje y mostrar el mensaje final
+function showEndMessage() {
+  let score = 5; // Puntaje inicial de 5 puntos
 
+  // Calculamos los intentos adicionales
+  const extraAttempts = total - 5; // Total de intentos menos los 5 intentos ideales
+
+  // Si hay intentos extra, restamos 0.50 por cada uno
+  if (extraAttempts > 0) {
+    score -= extraAttempts * 0.50;
+  }
+
+  // Aseguramos que el puntaje no sea menor que 0
+  score = Math.max(score, 0);
+
+  // Mostramos el mensaje final con el puntaje calculado
+  const finalScore = document.getElementById("final-score");
+  finalScore.textContent = `Completaste el juego en ${total} intentos. 
+  Tu puntaje final es: ${score.toFixed(2)} puntos.`;
+
+  // Mostramos el mensaje final
+  document.getElementById("end-message").style.display = "flex";
+}
+
+// Función para cerrar el mensaje final
+function closeEndMessage() {
+  document.getElementById("end-message").style.display = "none";
+}
+
+// Restart Game
 playAgainBtn.addEventListener("click", () => {
   playAgainBtn.classList.remove("play-again-btn-entrance");
   correct = 0;
@@ -210,7 +238,6 @@ playAgainBtn.addEventListener("click", () => {
 });
 
 // Helper
-
 function generateRandomItemsArray(n, originalArray) {
   let result = [];
   let clone = [...originalArray];
@@ -292,7 +319,7 @@ function handleTouchEnd(e) {
         playAgainBtn.classList.add("play-again-btn-entrance");
       }, 200);
 
-      // 👇 Mostrar mensaje final en mobile también
+      // Mostrar mensaje final en mobile también
       showEndMessage();
     }
   }
@@ -300,21 +327,9 @@ function handleTouchEnd(e) {
   touchDraggedEl = null;
 }
 
-
 // Solo activar si es dispositivo táctil
 if ("ontouchstart" in window) {
   document.addEventListener("touchstart", handleTouchStart, { passive: false });
   document.addEventListener("touchmove", handleTouchMove, { passive: false });
   document.addEventListener("touchend", handleTouchEnd);
-}
-
-
-function showEndMessage() {
-  const finalScore = document.getElementById("final-score");
-  finalScore.textContent = `Obtuviste ${correct} de ${total} intentos.`;
-  document.getElementById("end-message").style.display = "flex";
-}
-
-function closeEndMessage() {
-  document.getElementById("end-message").style.display = "none";
 }
