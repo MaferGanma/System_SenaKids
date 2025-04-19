@@ -35,6 +35,6 @@
         </div>
       </div>
     <!-- Script -->
-    <script src="{{ asset('js/scriptDragAndDrop1.js') }}"></script>
+    <script src="{{ asset('js/scriptDragAndDrop5.js') }}"></script>
   </body>
 </html>
