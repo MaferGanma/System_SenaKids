@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\MoonShine\Resources\PlayerResource;
-use App\MoonShine\Resources\TeamResource;
+use App\MoonShine\Resources\CalificacionResource;
+use App\MoonShine\Resources\ColegioResource;
+use App\MoonShine\Resources\CursoResource;
+use App\MoonShine\Resources\ParaleloResource;
+use App\MoonShine\Resources\EstudianteResource;
+
 use MoonShine\Providers\MoonShineApplicationServiceProvider;
 use MoonShine\MoonShine;
 use MoonShine\Menu\MenuGroup;
@@ -18,6 +22,7 @@ use MoonShine\Pages\Page;
 use Closure;
 use MoonShine\Pages\ViewPage;
 use MoonShine\Menu\MenuDivider;
+use MoonShine\MoonShineRequest;
 
 class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
 {
@@ -54,22 +59,67 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                 ),
             ]),
 
+
+
             MenuDivider::make(),
 
-            MenuItem::make('Cursos/Paralelos', new TeamResource)->icon('heroicons.list-bullet'),
-            //MenuItem::make('Curso', new TeamResource)->icon('heroicons.outline.flag'),
-            MenuItem::make('Estudiantes', new PlayerResource)->icon('heroicons.user'),
+            // MenuItem::make('Team', new TeamResource)->icon('heroicons.list-bullet'),
+            //MenuItem::make('Colegios', new ColegioResource)->icon('heroicons.list-bullet'),
+            MenuGroup::make('Gestión Académica', [
+                MenuItem::make('Colegios', new ColegioResource)
+                    ->icon('heroicons.building-library'),
+
+                MenuItem::make('Curso', new CursoResource)
+                    ->icon('heroicons.book-open'),
+
+                MenuItem::make('Paralelos', new ParaleloResource)
+                    ->icon('heroicons.queue-list'),
+
+            ])->icon('heroicons.academic-cap'),
+
+            MenuGroup::make('Estudiantes', [
+
+                MenuItem::make('Estudiantes', new EstudianteResource)
+                    ->icon('heroicons.user-group'),
+
+                MenuItem::make('Puntajes', new CalificacionResource)
+                    ->icon('heroicons.document-chart-bar'),
+
+            ])->icon('heroicons.user-circle'),
+
+
+            // MenuItem::make('Estudiantes', new PlayerResource)->icon('heroicons.user'),
+            // MenuItem::make('Players', new PlayerResource)->icon('heroicons.user'),
             //(Amo esto<3) Una nueva Pestaña:
             //MenuItem::make('Title', ViewPage::make()->setTitle('hello')),
 
+
             MenuDivider::make(),
+
             MenuItem::make('INICIO', ViewPage::make(title: 'Inicio', alias: 'inicio')
                 ->setContentView(contentView: 'home')
                 ->setBreadcrumbs([
                     '#' => 'Inicio'
                 ]))->icon('heroicons.home'),
 
+                // MenuItem::make('Memograma', ViewPage::make(title: 'Memograma', alias: 'memo')
+                // ->setContentView(contentView: 'memograma')
+                // ->setBreadcrumbs([
+                //     '#' => 'Memograma'
+                // ]))->icon('heroicons.home'),
+
+
+                MenuItem::make('Realidad Aumentada', '/realidad-aumentada')
+                ->icon('heroicons.camera')
+                ->badge('AR'),
+
             MenuDivider::make(),
+
+
+
+
+
+
             // Menú para cada categoría
             MenuGroup::make('Alfabeto Dactilológico', [
                 MenuItem::make(
@@ -417,7 +467,7 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
 
             MenuDivider::make(),
             // MenuItem::make('¡Desafío del Aprendizaje!', new PlayerResource)->icon('heroicons.academic-cap'),
-            
+
             MenuItem::make(
                 '¡Desafío del Aprendizaje!',
                 ViewPage::make(title: '¡Desafío del Aprendizaje!', alias: 'desafio-aprendizaje')
@@ -425,8 +475,8 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                     ->setBreadcrumbs([
                         '#' => 'Desafío del Aprendizaje'
                     ])
-            )->icon('heroicons.academic-cap'),            
-            /* 
+            )->icon('heroicons.academic-cap'),
+            /*
             MenuItem::make('¡Desafío del Aprendizaje!', ViewPage::make(title: 'Desafío del Aprendizaje', alias: 'desafio-aprendizaje')
     ->setContentView(contentView: 'Prueba.DesafioAprendizaje') // Puedes agregar el archivo de vista que corresponda
     ->setBreadcrumbs([

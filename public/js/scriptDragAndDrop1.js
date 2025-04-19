@@ -2,7 +2,7 @@ const brands = [
   {
     iconName: "letraZ",
     brandName: "Letra Z",
-    imgUrl: "/images/Tema1_Alfabeto/abecedario-26.jpg" 
+    imgUrl: "/images/Tema1_Alfabeto/abecedario-26.jpg"
   },
   {
     iconName: "letraY",
@@ -84,10 +84,10 @@ function initiateGame() {
 
   for (let i = 0; i < randomDraggableBrands.length; i++) {
     draggableItems.insertAdjacentHTML("beforeend", `
-      <img src="${randomDraggableBrands[i].imgUrl}" 
-           class="draggable" 
-           draggable="true" 
-           id="${randomDraggableBrands[i].iconName}" 
+      <img src="${randomDraggableBrands[i].imgUrl}"
+           class="draggable"
+           draggable="true"
+           id="${randomDraggableBrands[i].iconName}"
            data-brand="${randomDraggableBrands[i].iconName}" />
     `);
   }
@@ -201,7 +201,7 @@ function showEndMessage() {
 
   // Mostramos el mensaje final con el puntaje calculado
   const finalScore = document.getElementById("final-score");
-  finalScore.textContent = `Completaste el juego en ${total} intentos. 
+  finalScore.textContent = `Completaste el juego en ${total} intentos.
   Tu puntaje final es: ${score.toFixed(2)} puntos.`;
 
   // Mostramos el mensaje final
@@ -333,3 +333,45 @@ if ("ontouchstart" in window) {
   document.addEventListener("touchmove", handleTouchMove, { passive: false });
   document.addEventListener("touchend", handleTouchEnd);
 }
+
+
+function showEndMessage() {
+  const finalScore = document.getElementById("final-score");
+  finalScore.textContent = `Obtuviste ${correct} de ${total} intentos.`;
+  document.getElementById("end-message").style.display = "flex";
+}
+
+function closeEndMessage() {
+  document.getElementById("end-message").style.display = "none";
+}
+
+function showEndMessage() {
+    const finalScore = document.getElementById("final-score");
+    finalScore.textContent = `Obtuviste ${correct} de ${total} intentos.`;
+    document.getElementById("end-message").style.display = "flex";
+    guardarPuntaje(correct);
+}
+
+const guardarPuntaje = (calificacion) => {
+    console.log('hola');
+    const idJuego = 3; //Este id juego es de la tabla juego (Alfabeto->memograma)
+
+    fetch('/guardar-puntaje', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'), // CSRF token
+        },
+        body: JSON.stringify({
+            id_juego: idJuego,
+            calificacion: calificacion,
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Puntaje guardado:', data);
+    })
+    .catch(error => {
+        console.error('Error al guardar el puntaje:', error);
+    });
+};

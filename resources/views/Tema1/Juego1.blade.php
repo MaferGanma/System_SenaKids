@@ -13,19 +13,14 @@
   </head>
   <body>
     <!-- partial:index.partial.html -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <section class="score">
         <span class="correct">0</span>/<span class="total">0</span>
         <button id="play-again-btn">Jugar de Nuevo</button>
       </section>
       <section class="draggable-items">
-        <!-- Will be dynamically populated - Example Element: -->
-        <!-- <i class="fab fa-codepen draggable" draggable="true" style="color: #111111;" id="codepen"></i> -->
       </section>
       <section class="matching-pairs">
-        <!-- Will be dynamically populated - Example Element: -->
-        <!-- <div class="matching-pair">
-          <span class="label">Codepen</span><span class="droppable" data-brand="codepen"></span>
-        </div> -->
       </section>
       <div id="end-message" class="end-message">
         <div class="end-message-content">

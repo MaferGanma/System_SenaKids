@@ -19,8 +19,18 @@
       </h2>
     </div>
 
+
     <ul class="cards"></ul>
   </div>
+
+
+      {{-- <input type="text" id="userId" value="{{ Auth::id() }}"> --}}
+            {{-- <button onclick="guardarPuntaje(100)">Presionar</button> --}}
+      {{-- <a href="{{route('prueba')}}">Presionar</a> --}}
+
+
+      <input type="hidden" id="userId" value="{{ Auth::id() }}">
+
 
   <div id="modalResultados" class="modal">
     <div class="modal-content">
@@ -32,6 +42,10 @@
   </div>
 
   <input type="hidden" id="userId" value="{{ Auth::id() }}">
+
+    <audio id="fondo" loop src="{{asset('/public/sounds/musica.mp3')}}" type="audio/mpeg"/>
+    <audio id="sonidos" src="" type="audio/mpeg"/>
+    <script src="{{asset('js/scriptmemograma.js')}}"></script>
 
   <audio id="fondo" loop src="sounds/musica.mp3" type="audio/mpeg"></audio>
   <audio id="sonidos" src="" type="audio/mpeg"></audio>

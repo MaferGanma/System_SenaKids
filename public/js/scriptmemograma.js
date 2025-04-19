@@ -1,161 +1,205 @@
-const cardsContainer = document.querySelector('.cards');
-const num_parejas = document.querySelector('.score-container h2 span');
-const span_intentos = document.getElementById('intentos');
+const cards = document.querySelectorAll('.card');
+const num_parejas = document.querySelector('.container h2 span')
 
 let tar_1, tar_2, deshabilitarCartas = false;
 let parejas = 0;
 let intentos = 0;
-let sonidos = document.querySelector('#sonidos');
-let fondo = document.querySelector('#fondo');
+const maxIntentos = 16;
 
-const escuchar = document.querySelector('#escuchar');
-escuchar.addEventListener('click', () => {
-  fondo.volume = fondo.volume === 0 ? 0.9 : 0.0;
-  escuchar.textContent = fondo.volume === 0 ? "Sonido: OFF" : "Sonido: ON";
-});
+let sonidos = document.querySelector('#sonidos')
+let fondo = document.querySelector('#fondo')
 
-// ✅ Pares personalizados: dibujo y palabra (dos imágenes distintas, mismo "match")
-const pares = [
-    {
-      match: 'a',
-      src: 'https://cdn.glitch.global/c7b87c3e-1d17-461a-a989-b17e078f89ca/abecedario-01.jpg?v=1745015791082'
-    },
-    {
-      match: 'a',
-      src: 'https://cdn.glitch.global/c7b87c3e-1d17-461a-a989-b17e078f89ca/5.jpg?v=1745021199090'
-    },
-  { match: 'perro', src: 'images/memograma/3.jpg' },
-  { match: 'perro', src: 'images/memograma/4.jpg' },
-  { match: 'casa', src: 'images/memograma/5.jpg' },
-  { match: 'casa', src: 'images/memograma/6a.jpg' },
-  { match: 'sol', src: 'images/memograma/7.jpg' },
-  { match: 'sol', src: 'images/memograma/8.jpg' },
-  { match: 'pez', src: 'images/memograma/pez.jpg' },
-  { match: 'pez', src: 'images/memograma/pez_palabra.jpg' },
-  { match: 'leon', src: 'images/memograma/leon.jpg' },
-  { match: 'leon', src: 'images/memograma/leon_palabra.jpg' },
-  { match: 'flor', src: 'images/memograma/flor.jpg' },
-  { match: 'flor', src: 'images/memograma/flor_palabra.jpg' },
-  { match: 'avion', src: 'images/memograma/avion.jpg' },
-  { match: 'avion', src: 'images/memograma/avion_palabra.jpg' }
-];
+let escuchar = document.querySelector('#escuchar');
+let span_intentos = document.querySelector('#intentos');
 
-const crearCartas = () => {
-  cardsContainer.innerHTML = '';
-  const mezcladas = [...pares].sort(() => Math.random() - 0.5);
-  mezcladas.forEach(item => {
-    const card = document.createElement('li');
-    card.classList.add('card');
-    card.setAttribute('data-match', item.match);
-    card.innerHTML = `
-      <div class="view front-view"><span class="material-icons">question_mark</span></div>
-      <div class="view back-view"><img src="${item.src}" alt="card" /></div>
-    `;
-    card.addEventListener('click', darVuelta);
-    cardsContainer.appendChild(card);
-  });
-};
-
-const darVuelta = e => {
-  const card = e.currentTarget;
-  if (card !== tar_1 && !card.classList.contains('vuelta') && !deshabilitarCartas) {
-    card.classList.add('vuelta');
-    if (!tar_1) {
-      tar_1 = card;
-      return;
+const sonidoDeFondo = (e) =>{
+    if(fondo.volume == 0.0){
+        fondo.volume = 0.9
+        return  escuchar.innerHTML="Sonido: ON"
     }
+    fondo.volume = 0.0
+    return  escuchar.innerHTML="Sonido: OFF"
+}
 
-    tar_2 = card;
-    deshabilitarCartas = true;
+escuchar.addEventListener('click', sonidoDeFondo)
+
+sonidos.play
+
+const darVuelta = (e) => {
+    let tarjeta = e.target;
+
+    if(tarjeta!== tar_1 && !deshabilitarCartas){
+        tarjeta.classList.add("vuelta")
+        if(!tar_1){
+            return tar_1=tarjeta;
+        }
+        tar_2 = tarjeta
+        deshabilitarCartas = true
+
+        let img1 = tar_1.querySelector('img').src
+        let img2 = tar_2.querySelector('img').src
+        console.log(img1);
+        sonIguales(img1, img2)
+    }
+}
+
+const sonIguales = (imagen1, imagen2) => {
     intentos++;
-    span_intentos.textContent = intentos;
+    span_intentos.innerHTML = intentos;
 
-    const match1 = tar_1.getAttribute('data-match');
-    const match2 = tar_2.getAttribute('data-match');
-
-    if (match1 === match2) {
-      sonidos.src = 'sounds/success.mp3';
-      sonidos.play();
-      parejas++;
-      num_parejas.textContent = parejas;
-
-      tar_1.removeEventListener('click', darVuelta);
-      tar_2.removeEventListener('click', darVuelta);
-      tar_1 = tar_2 = null;
-      deshabilitarCartas = false;
-
-      if (parejas === 8) {
-        sonidos.src = 'sounds/victoria.mp3';
+    if (imagen1 === imagen2) {
+        sonidos.src = window.location.origin + "/sounds/success.mp3";
+        sonidos.volume = 0.9;
         sonidos.play();
-        setTimeout(mostrarResultados, 1000);
-      }
-    } else {
-      sonidos.src = 'sounds/error.mp3';
-      sonidos.play();
-      setTimeout(() => {
-        tar_1.classList.remove('vuelta');
-        tar_2.classList.remove('vuelta');
-        tar_1 = tar_2 = null;
+
+        parejas++;
+        num_parejas.innerHTML = parejas;
+
+        if (parejas === 8) {
+            sonidos.src = window.location.origin + "/sounds/victoria.mp3";
+            sonidos.volume = 0.9;
+            sonidos.play();
+
+            setTimeout(mostrarResultados, 1000);
+        }
+
+        tar_1.removeEventListener("click", darVuelta);
+        tar_2.removeEventListener("click", darVuelta);
+        tar_1 = tar_2 = "";
         deshabilitarCartas = false;
-      }, 1200);
+        return;
     }
-  }
+
+    setTimeout(() => {
+        tar_1.classList.add("moverse");
+        tar_2.classList.add("moverse");
+
+        sonidos.src = window.location.origin + "/sounds/error.mp3";
+
+        sonidos.volume = 0.9;
+        sonidos.play();
+    }, 500);
+
+    setTimeout(() => {
+        tar_1.classList.remove("moverse", "vuelta");
+        tar_2.classList.remove("moverse", "vuelta");
+        tar_1 = tar_2 = "";
+        deshabilitarCartas = false;
+    }, 1500);
 };
 
-const mostrarResultados = () => {
-  const calificacion = calcularCalificacion(intentos, 16);
-  document.getElementById('modalResultados').style.display = 'flex';
-  document.getElementById('totalIntentos').textContent = `Intentos: ${intentos} — Puntaje: ${calificacion} puntos`;
-  guardarPuntaje(calificacion);
-};
+const reiniciarJuego = () => {
+    fondo.src = window.location.origin + "/sounds/musica.mp3";
+    fondo.volume = 0.1;
 
-const calcularCalificacion = (intentos, maxIntentos) => {
-  let score = 100;
-  const penalizacion = (intentos - maxIntentos) * 5;
-  if (intentos > maxIntentos) score -= penalizacion;
-  return Math.max(score, 0);
-};
+    intentos = 0;
+    parejas = 0;
+    tar_1 = tar_2 = "";
+    deshabilitarCartas = false;
+    num_parejas.innerHTML = parejas;
 
-const guardarPuntaje = calificacion => {
-  const userId = document.getElementById("userId").value;
-  fetch('/guardar-puntaje', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-    },
-    body: JSON.stringify({ userId, calificacion }),
-  }).then(res => res.json())
-    .then(data => console.log('Puntaje guardado:', data))
-    .catch(err => console.error('Error al guardar:', err));
-};
+    let fichas = [1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8];
+    fichas.sort(() => {
+        return Math.random() - 0.5;
+    });
 
-document.getElementById("btnReintentar").addEventListener("click", () => {
-  document.getElementById("modalResultados").style.display = "none";
-  iniciarJuego();
-});
+    cards.forEach((tarjeta, index) => {
+        tarjeta.classList.remove("vuelta");
+        let img = tarjeta.querySelector('img');
+        img.src = /images/memograma/${fichas[index]}.jpg;
+        tarjeta.addEventListener('click', darVuelta);
+    });
+}
 
-document.getElementById("btnSiguiente").addEventListener("click", () => {
-  document.getElementById("modalResultados").style.display = "none";
-  alert("Redirigiendo al siguiente juego...");
+document.addEventListener('DOMContentLoaded', () => {
+    const startButton = document.getElementById('startButton');
+
+    if (startButton) {
+        startButton.addEventListener('click', () => {
+            reiniciarJuego();
+            fondo.play().catch(error => {
+                console.log("Error al reproducir audio:", error);
+            });
+        });
+    }
 });
 
 let primerInteraccion = true;
 document.addEventListener('click', () => {
-  if (primerInteraccion) {
-    fondo.play().catch(() => {});
-    primerInteraccion = false;
-  }
+    if (primerInteraccion) {
+        fondo.play().catch(error => {
+            console.log("Error al reproducir audio:", error);
+        });
+        primerInteraccion = false;
+    }
 }, { once: true });
 
-const iniciarJuego = () => {
-  parejas = 0;
-  intentos = 0;
-  tar_1 = tar_2 = null;
-  deshabilitarCartas = false;
-  num_parejas.textContent = parejas;
-  span_intentos.textContent = intentos;
-  crearCartas();
+reiniciarJuego()
+cards.forEach(tarjeta => {
+    tarjeta.addEventListener('click', darVuelta)
+})
+
+const mostrarResultados = () => {
+    // Calcular la calificación
+    const calificacion = calcularCalificacion(intentos, maxIntentos);
+
+    // Mostrar el resultado en el modal
+    document.getElementById("modalResultados").style.display = "flex";
+    document.getElementById("totalIntentos").innerText = Puntaje: ${calificacion} puntos;
+
+    guardarPuntaje(calificacion);
 };
 
-iniciarJuego();
+const cerrarModal = () => {
+    document.getElementById("modalResultados").style.display = "none";
+};
+
+document.getElementById("btnReintentar").addEventListener("click", () => {
+    cerrarModal();
+    reiniciarJuego();
+});
+
+document.getElementById("btnSiguiente").addEventListener("click", () => {
+    cerrarModal();
+    alert("Aquí puedes redirigir a otra fase del juego.");
+});
+
+const calcularCalificacion = (intentos, maxIntentos) => {
+    const intentosIdeales = maxIntentos; // Mínimo de intentos para puntaje máximo
+    let calificacion = 100;
+    console.log(calificacion)
+    console.log(intentos)
+
+    //15/15
+    if (intentos > intentosIdeales) {
+        const penalizacion = (intentos - intentosIdeales) * 10; // Restar 10 puntos por cada intento extra
+        calificacion -= penalizacion;
+    }
+
+    // Asegurarse de que la calificación no sea menor que 0
+    return Math.max(calificacion, 0);
+}
+
+const guardarPuntaje = (calificacion) => {
+    console.log('hola');
+    const idJuego = 1; //Este id juego es de la tabla juego (Alfabeto->memograma)
+
+    fetch('/guardar-puntaje', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'), // CSRF token
+        },
+        body: JSON.stringify({
+            id_juego: idJuego,
+            calificacion: calificacion,
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Puntaje guardado:', data);
+    })
+    .catch(error => {
+        console.error('Error al guardar el puntaje:', error);
+    });
+};

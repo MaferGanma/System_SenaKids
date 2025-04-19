@@ -13,8 +13,8 @@ return [
     'namespace' => 'App\MoonShine',
 
     'title' => env('MOONSHINE_TITLE', 'SeñaKids'),
-    'logo' => env('MOONSHINE_LOGO','Logo_Kids.png'),
-    'logo_small' => env('MOONSHINE_LOGO_SMALL','Logo.png'),
+    'logo' => env('MOONSHINE_LOGO', 'Logo_Kids.png'),
+    'logo_small' => env('MOONSHINE_LOGO_SMALL', 'Logo.png'),
 
     'route' => [
         'domain' => env('MOONSHINE_URL', ''),
@@ -64,6 +64,10 @@ return [
     'model_resources' => [
         'default_with_import' => true,
         'default_with_export' => true,
+    ],
+    'resources' => [
+        \App\MoonShine\Resources\EstudianteResource::class,
+        // otros recursos...
     ],
 
     'auth' => [

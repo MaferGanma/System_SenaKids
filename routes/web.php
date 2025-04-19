@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JuegoController;
 
 Route::get('/', function () {
     //return view('welcome');
@@ -33,31 +34,31 @@ Route::get('/final', function () {
 
 
 Route::get('/tema1/juego1', function () {
-    return view('Tema1.Juego1');  // Apunta a la vista 
+    return view('Tema1.Juego1');  // Apunta a la vista
 });
 
 Route::get('/tema2/juego1', function () {
-    return view('Tema2.Juego1');  // Apunta a la vista 
+    return view('Tema2.Juego1');  // Apunta a la vista
 });
 
 Route::get('/tema3/juego1', function () {
-    return view('Tema3.Juego1');  // Apunta a la vista 
+    return view('Tema3.Juego1');  // Apunta a la vista
 });
 
 Route::get('/tema4/juego1', function () {
-    return view('Tema4.Juego1');  // Apunta a la vista 
+    return view('Tema4.Juego1');  // Apunta a la vista
 });
 
 Route::get('/tema5/juego1', function () {
-    return view('Tema5.Juego1');  // Apunta a la vista 
+    return view('Tema5.Juego1');  // Apunta a la vista
 });
 
 Route::get('/tema6/juego1', function () {
-    return view('Tema6.Juego1');  // Apunta a la vista 
+    return view('Tema6.Juego1');  // Apunta a la vista
 });
 
 Route::get('/tema7/juego1', function () {
-    return view('Tema7.Juego1');  // Apunta a la vista 
+    return view('Tema7.Juego1');  // Apunta a la vista
 });
 
 Route::get('/tema8/juego1', function () {
@@ -163,4 +164,9 @@ Route::get('/tema7/quizz', function () {
 
 Route::get('/tema8/quizz', function () {
     return view('Tema8.MiniQuizz8');  // Vista creada en resources/views/Tema1/MiniQuizz1.blade.php
+});
+
+Route::controller(JuegoController::class)->group(function(){
+    Route::post('/guardar-puntaje', 'guardarPuntaje');
+    Route::get('/prueba', 'prueba')->name('prueba');
 });
