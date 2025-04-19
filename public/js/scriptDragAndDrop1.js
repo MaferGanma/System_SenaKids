@@ -349,7 +349,18 @@ function showEndMessage() {
     const finalScore = document.getElementById("final-score");
     finalScore.textContent = `Obtuviste ${correct} de ${total} intentos.`;
     document.getElementById("end-message").style.display = "flex";
-    guardarPuntaje(correct);
+    calculo_calificacion(correct, total)
+
+}
+
+function calculo_calificacion(correct, total_intentos){
+    calificacion = 100;
+    if(total_intentos > correct){
+        for(i = correct; i< total_intentos; i++){
+            calificacion = calificacion - 10;
+        }
+    }
+    guardarPuntaje(calificacion);
 }
 
 const guardarPuntaje = (calificacion) => {
