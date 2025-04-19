@@ -184,7 +184,7 @@
 
     <audio id="fondo" loop src="{{asset('sounds/musica.mp3')}}" type="audio/mpeg"/>
     <audio id="sonidos" src="" type="audio/mpeg"/>
-    <script src="{{asset('js/scriptmemograma.js')}}"></script>
+    <script src="{{asset('js/scriptmemograma2.js')}}"></script>
 
   </body>
 </html>

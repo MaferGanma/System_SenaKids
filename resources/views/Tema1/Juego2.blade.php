@@ -178,11 +178,12 @@
         </div>
       </div>
 
-      <input type="text" id="userId" value="{{ Auth::id() }}">
+      {{-- <input type="text" id="userId" value="{{ Auth::id() }}"> --}}
+            {{-- <button onclick="guardarPuntaje(100)">Presionar</button> --}}
+      {{-- <a href="{{route('prueba')}}">Presionar</a> --}}
 
-      <button onclick="guardarPuntaje(100)">Presionar</button>
 
-    <audio id="fondo" loop src="{{asset('sounds/musica.mp3')}}" type="audio/mpeg"/>
+    <audio id="fondo" loop src="{{asset('/public/sounds/musica.mp3')}}" type="audio/mpeg"/>
     <audio id="sonidos" src="" type="audio/mpeg"/>
     <script src="{{asset('js/scriptmemograma.js')}}"></script>
 

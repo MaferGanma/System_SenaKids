@@ -182,7 +182,7 @@ const calcularCalificacion = (intentos, maxIntentos) => {
 
 const guardarPuntaje = (calificacion) => {
     console.log('hola');
-    const nombreUsuario = 'Jugador1'; // Aquí debes obtener el nombre del jugador o lo que sea necesario
+    const idJuego = 1; //Este id juego es de la tabla juego (Alfabeto->memograma)
 
     fetch('/guardar-puntaje', {
         method: 'POST',
@@ -191,7 +191,7 @@ const guardarPuntaje = (calificacion) => {
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'), // CSRF token
         },
         body: JSON.stringify({
-            nombre_usuario: nombreUsuario,
+            id_juego: idJuego,
             calificacion: calificacion,
         }),
     })
