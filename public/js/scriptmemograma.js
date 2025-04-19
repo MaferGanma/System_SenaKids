@@ -181,7 +181,7 @@ const calcularCalificacion = (intentos, maxIntentos) => {
 }
 
 const guardarPuntaje = (calificacion) => {
-    console.log('hola');
+    
     const idJuego = 1; //Este id juego es de la tabla juego (Alfabeto->memograma)
 
     fetch('/guardar-puntaje', {
