@@ -5,19 +5,24 @@
     box-sizing: border-box;
     font-family: 'Roboto Condensed';
 }
-body{
-    height: 100vh;
-    background:linear-gradient(#584bb4,#6a416b,#685082);
+body {
+    min-height: 100vh;
+    background: linear-gradient(#584bb4, #6a416b, #685082);
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 40px 20px; /* 🎯 NUEVO: espacio para arriba y abajo */
 }
-.container{
+.container {
     width: 500px;
-    background: linear-gradient(#6051e0,#ad79b9);
-    height: 80%;
-    padding: 20px;
+    background: linear-gradient(#6051e0, #ad79b9);
+    height: auto; /* Cambiamos de % a auto para adaptarse al contenido */
+    min-height: 750px; /* Altura mínima más grande para que quepa todo */
+    padding: 30px;
     position: relative;
+    border-radius: 25px; /* Bordes redondeados más visibles */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Un toque de sombra pro */
+    
 }
 .container .img{
     width: 140px;
@@ -63,7 +68,7 @@ header{
     padding: 10px;
     font-weight: bold;
     border-radius: 50px;
-    margin-top: 30px;
+    margin-top: 7px;
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -236,4 +241,21 @@ header{
     color: #fff;
     margin: 10px 0;
     display: inline-block;
+}
+
+/* Imagen pregunta */
+.imagen-pregunta {
+    width: 90%;               /* se adapta al contenedor sin ser demasiado grande */
+    max-width: 280px;         /* más pequeño para PC */
+    height: auto;
+    max-height: 200px;        /* limitamos altura */
+    object-fit: cover;        /* recorta sin deformar */
+    margin: 20px auto 2px auto; 
+    border-radius: 20px;      /* bordes más redondeados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    display: block;
+    transition: transform 0.3s ease;
+}
+.imagen-pregunta:hover {
+    transform: scale(1.02);
 }

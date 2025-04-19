@@ -106,7 +106,7 @@ const reiniciarJuego = () => {
     cards.forEach((tarjeta, index) => {
         tarjeta.classList.remove("vuelta");
         let img = tarjeta.querySelector('img');
-        img.src = `/images/memograma/${fichas[index]}.jpg`;
+        img.src = /images/memograma/${fichas[index]}.jpg;
         tarjeta.addEventListener('click', darVuelta);
     });
 }
@@ -145,7 +145,7 @@ const mostrarResultados = () => {
 
     // Mostrar el resultado en el modal
     document.getElementById("modalResultados").style.display = "flex";
-    document.getElementById("totalIntentos").innerText = `Puntaje: ${calificacion} puntos`;
+    document.getElementById("totalIntentos").innerText = Puntaje: ${calificacion} puntos;
 
     guardarPuntaje(calificacion);
 };

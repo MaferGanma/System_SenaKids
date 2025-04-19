@@ -38,7 +38,9 @@
                 <button class="opcion" id="c">Opcion C</button>
                 <button class="opcion" id="d">OPCION D</button>
             </div>
-
+            <div class="contenedor-pregunta">
+                <img id="imagen-pregunta" src="" alt="Imagen de la pregunta" class="imagen-pregunta">
+            </div>
             <button class="btn" id="siguiente">Siguiente</button>
         </main>
     </div>

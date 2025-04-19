@@ -82,6 +82,9 @@ function terminarJuego() {
     // agregamos los resultados
     document.getElementById("numCorrectas").innerHTML = cantidadAcertadas;
     document.getElementById("numIncorrectas").innerHTML = banderas.length - cantidadAcertadas;
+    //Calculamos nota sobre 100
+    let nota = cantidadAcertadas * 20;
+    document.getElementById("notaFinal").innerHTML = nota;
 }
 
 function volverAlInicio() {
