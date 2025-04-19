@@ -28,9 +28,9 @@ function comenzarJuego() {
     cargarBandera();
 }
 
-// funcion que carga la siguiente bandera y sus opciones
+// funcion que carga la siguiente seña y sus opciones
 function cargarBandera() {
-    // controlo si se acabaron las banderas
+    // controlo si se acabaron las señas
     if (banderas.length <= posActual) {
         terminarJuego();
     } else { // cargo las opciones
@@ -71,7 +71,7 @@ function comprobarRespuesta(opElegida) {
         document.getElementById("l" + correcta[posActual]).className = "letra letraAcertada";
     }
     posActual++;
-    // Esperamos 1 segundo y pasamos mostrar la siguiente bandera y sus opciones
+    // Esperamos 1 segundo y pasamos mostrar la siguiente señas y sus opciones
     setTimeout(cargarBandera, 1000);
 }
 

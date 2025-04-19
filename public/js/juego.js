@@ -9,7 +9,8 @@ const preguntas = [
         opcionB:"Marte",
         opcionC:"Jupiter",
         opcionD:"Saturno",
-        correcta:"c"
+        correcta:"c",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id:2,
@@ -19,7 +20,8 @@ const preguntas = [
         opcionB:"Julio Cortázar",
         opcionC:"Isabel Allende",
         opcionD:"Mario Vargas Llosa",
-        correcta:"a"
+        correcta:"a",
+        imagen: "images/memograma/2.jpg" // Ruta de imagen 
     },
     {
         id:3,
@@ -29,7 +31,8 @@ const preguntas = [
         opcionB:"Nilo",
         opcionC:"Paraná",
         opcionD:"Misisipi",
-        correcta:"a"
+        correcta:"a",
+        imagen: "images/memograma/3.jpg" // Ruta de imagen 
     },
     {
         id:4,
@@ -39,7 +42,8 @@ const preguntas = [
         opcionB:"Oxígeno",
         opcionC:"Dióxido de carbono",
         opcionD:"Hidrógeno",
-        correcta:"a"
+        correcta:"a",
+        imagen: "images/memograma/4.jpg" // Ruta de imagen 
     },
     {
         id:4,
@@ -49,7 +53,8 @@ const preguntas = [
         opcionB:"1914",
         opcionC:"1923",
         opcionD:"1939",
-        correcta:"b"
+        correcta:"b",
+        imagen: "images/memograma/5.jpg" // Ruta de imagen 
     },
     {
         id: 6,
@@ -59,7 +64,8 @@ const preguntas = [
         opcionB: "Michael Jackson",
         opcionC: "Madonna",
         opcionD: "Prince",
-        correcta: "b"
+        correcta: "b",
+        imagen: "images/memograma/6.jpg" // Ruta de imagen 
     },
     {
         id: 7,
@@ -69,7 +75,8 @@ const preguntas = [
         opcionB: "Electrónica",
         opcionC: "Rap",
         opcionD: "Pop",
-        correcta: "d"
+        correcta: "d",
+        imagen: "images/memograma/7.jpg" // Ruta de imagen 
     },
     {
         id: 8,
@@ -79,7 +86,8 @@ const preguntas = [
         opcionB: "1970",
         opcionC: "1980",
         opcionD: "1990",
-        correcta: "b"
+        correcta: "b",
+        imagen: "images/memograma/8.jpg" // Ruta de imagen 
     },
     {
         id: 9,
@@ -89,7 +97,8 @@ const preguntas = [
         opcionB: "Jimi Hendrix",
         opcionC: "Brian May",
         opcionD: "Eric Clapton",
-        correcta: "c"
+        correcta: "c",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 10,
@@ -99,7 +108,8 @@ const preguntas = [
         opcionB: "Piano",
         opcionC: "Violín",
         opcionD: "Flauta",
-        correcta: "c"
+        correcta: "c",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 11,
@@ -109,7 +119,8 @@ const preguntas = [
         opcionB: "Baloncesto",
         opcionC: "Golf",
         opcionD: "Tenis",
-        correcta: "b"
+        correcta: "b",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 12,
@@ -119,7 +130,8 @@ const preguntas = [
         opcionB: "Francia",
         opcionC: "España",
         opcionD: "Australia",
-        correcta: "a"
+        correcta: "a",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 13,
@@ -129,7 +141,8 @@ const preguntas = [
         opcionB: "10",
         opcionC: "11",
         opcionD: "12",
-        correcta: "c"
+        correcta: "c",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 14,
@@ -139,7 +152,8 @@ const preguntas = [
         opcionB: "Usain Bolt",
         opcionC: "Simone Biles",
         opcionD: "Roger Federer",
-        correcta: "a"
+        correcta: "a",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 15,
@@ -149,7 +163,8 @@ const preguntas = [
         opcionB: "Tenis",
         opcionC: "Golf",
         opcionD: "Balonmano",
-        correcta: "b"
+        correcta: "b",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 16,
@@ -159,7 +174,8 @@ const preguntas = [
         opcionB: "Python",
         opcionC: "C++",
         opcionD: "Java",
-        correcta: "c"
+        correcta: "c",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 17,
@@ -169,7 +185,8 @@ const preguntas = [
         opcionB: "High-Level Text Management Language",
         opcionC: "HyperTransfer Markup Language",
         opcionD: "High-Level Transfer Management Language",
-        correcta: "a"
+        correcta: "a",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 18,
@@ -179,7 +196,8 @@ const preguntas = [
         opcionB: "Estilizar la presentación de las páginas web",
         opcionC: "Gestionar la interactividad del usuario",
         opcionD: "Definir las rutas de la aplicación",
-        correcta: "b"
+        correcta: "b",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 19,
@@ -189,7 +207,8 @@ const preguntas = [
         opcionB: "Una estructura condicional",
         opcionC: "Una función",
         opcionD: "Una estructura de control de flujo que se repite",
-        correcta: "d"
+        correcta: "d",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 20,
@@ -199,7 +218,8 @@ const preguntas = [
         opcionB: "MongoDB",
         opcionC: "Express",
         opcionD: "SQLite",
-        correcta: "c"
+        correcta: "c",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 21,
@@ -209,7 +229,8 @@ const preguntas = [
         opcionB: "Link",
         opcionC: "Mario",
         opcionD: "Master Chief",
-        correcta: "c"
+        correcta: "c",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 22,
@@ -219,7 +240,8 @@ const preguntas = [
         opcionB: "1998",
         opcionC: "2000",
         opcionD: "2002",
-        correcta: "b"
+        correcta: "b",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 23,
@@ -229,7 +251,8 @@ const preguntas = [
         opcionB: "Sony",
         opcionC: "Nintendo",
         opcionD: "Sega",
-        correcta: "b"
+        correcta: "b",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 24,
@@ -239,7 +262,8 @@ const preguntas = [
         opcionB: "Ezio Auditore",
         opcionC: "Aloy",
         opcionD: "Joel",
-        correcta: "a"
+        correcta: "a",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 25,
@@ -249,7 +273,8 @@ const preguntas = [
         opcionB: "Tetris",
         opcionC: "Grand Theft Auto V",
         opcionD: "Super Mario Bros.",
-        correcta: "b"
+        correcta: "b",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 26,
@@ -259,7 +284,8 @@ const preguntas = [
         opcionB: "Mufasa",
         opcionC: "Scar",
         opcionD: "Timón",
-        correcta: "a"
+        correcta: "a",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 27,
@@ -269,7 +295,8 @@ const preguntas = [
         opcionB: "Woody",
         opcionC: "Slinky",
         opcionD: "Mr. Potato Head",
-        correcta: "b"
+        correcta: "b",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 28,
@@ -279,7 +306,8 @@ const preguntas = [
         opcionB: "La Sirenita",
         opcionC: "Blancanieves",
         opcionD: "Mulan",
-        correcta: "b"
+        correcta: "b",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 29,
@@ -289,7 +317,8 @@ const preguntas = [
         opcionB: "Mike Wazowski",
         opcionC: "Randall",
         opcionD: "Boo",
-        correcta: "a"
+        correcta: "a",
+        imagen: "images/memograma/1.jpg" // Ruta de imagen 
     },
     {
         id: 30,
@@ -299,7 +328,8 @@ const preguntas = [
         opcionB: "Finding Nemo",
         opcionC: "Up",
         opcionD: "Ratatouille",
-        correcta: "a"
+        correcta: "a",
+        imagen: "images/memograma/3.jpg" // Ruta de imagen 
     }
 ]
 
@@ -336,6 +366,9 @@ function cargarSiguientePregunta(num){
     const opcionC = document.querySelector("#c");
     const opcionD = document.querySelector("#d");
 
+    // elemento de imagen
+    const imgPregunta = document.querySelector("#imagen-pregunta");
+
     numPregunta.innerHTML = num + 1;
     txtPregunta.innerHTML = preguntasCategoria[num].titulo;
     opcionA.innerHTML = preguntasCategoria[num].opcionA;
@@ -343,7 +376,8 @@ function cargarSiguientePregunta(num){
     opcionC.innerHTML = preguntasCategoria[num].opcionC;
     opcionD.innerHTML = preguntasCategoria[num].opcionD;
 
-    
+    // nueva línea para la imagen
+    imgPregunta.src = preguntasCategoria[num].imagen;
 
     //Agrego un eventlistener a cada boton de respuesta
     const botonesRespuesta = document.querySelectorAll(".opcion");
@@ -366,22 +400,26 @@ function agregarEventListenerBoton(e){
     console.log(e.currentTarget.id);
     console.log(numPreguntaActual);
     console.log(preguntas[numPreguntaActual].correcta);
-    //Controlo si la respuesta es correcta
+
     if(e.currentTarget.id === preguntasCategoria[numPreguntaActual].correcta){
         e.currentTarget.classList.add("correcta");
         puntajeTotal = puntajeTotal + 100;
+
+        // ✅ Aumentamos respuestas correctas
+        let respuestasCorrectas = parseInt(localStorage.getItem("respuestas-correctas")) || 0;
+        respuestasCorrectas++;
+        localStorage.setItem("respuestas-correctas", respuestasCorrectas);
+
         txtPuntaje.innerHTML = puntajeTotal;
         localStorage.setItem("puntaje-total", puntajeTotal);
         txtPuntaje.classList.add("efecto");
-    }else{
+    } else {
         e.currentTarget.classList.add("incorrecta");
         const correcta = document.querySelector("#"+preguntasCategoria[numPreguntaActual].correcta);
         correcta.classList.add("correcta");
     }
-    //Agrego un eventlistener a cada boton de respuesta
+
     const botonesRespuesta = document.querySelectorAll(".opcion");
-    //Quito los eventListen para que no pueda seguir haciendo clic
-    console.log(botonesRespuesta)
     botonesRespuesta.forEach(opcion=>{
         opcion.classList.add("no-events");
     })
