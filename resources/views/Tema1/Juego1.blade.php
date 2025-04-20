@@ -14,6 +14,7 @@
   <body>
     <!-- partial:index.partial.html -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    {{-- <a href="{{route('prueba')}}">Presiona</a> --}}
     <section class="score">
         <span class="correct">0</span>/<span class="total">0</span>
         <button id="play-again-btn">Jugar de Nuevo</button>

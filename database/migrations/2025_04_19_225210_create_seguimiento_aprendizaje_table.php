@@ -11,17 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('juegos_estudiantes', function (Blueprint $table) {
+        Schema::create('seguimiento_aprendizaje', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('estudiante_id');
-            $table->unsignedBigInteger('juego_id');
-            $table->integer('puntaje');
-            $table->integer('intentos');
-            $table->timestamp('fecha_juego');
-            // $table->boolean('completado');
+            $table->timestamp('fecha')->nullable();
+            $table->text('observacion')->nullable();
+            $table->decimal('avance', 5, 2)->default(0);
+            $table->string('nivel', 50)->nullable(); // Básico, Intermedio, Avanzado
             $table->timestamps();
+
             $table->foreign('estudiante_id')->references('id')->on('estudiantes')->onDelete('cascade');
-            $table->foreign('juego_id')->references('id')->on('juego')->onDelete('cascade');
         });
     }
 
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('juegos_estudiantes');
+        Schema::dropIfExists('seguimiento_aprendizaje');
     }
 };

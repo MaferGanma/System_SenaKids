@@ -15,8 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('nombre_usuario');
             $table->integer('calificacion');
+            $table->integer('intentos');
+            $table->unsignedBigInteger('id_estudiante');
+            $table->unsignedBigInteger('id_juego');
             $table->date('fecha');
             $table->timestamps();
+            $table->foreign('id_estudiante')->references('id')->on('estudiantes')->onDelete('cascade');
+            // $table->foreign('id_juego')->references('id')->on('juegos_estudiantes')->onDelete('cascade');
         });
     }
 
