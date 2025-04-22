@@ -53,9 +53,6 @@ function cargarNuevaPalabra() {
             guardarPuntaje(puntajeFinal);
         }, 500);
 
-        nota = puntajeFinal;
-        console.log('nota = ', nota)
-        guardarPuntaje(nota);
         return; // No generar más palabras
     }
 

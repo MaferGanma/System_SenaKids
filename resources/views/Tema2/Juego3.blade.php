@@ -24,8 +24,9 @@
             <div class="letra">R</div>
             <div class="letra">R</div>
             <div class="letra">A</div>
+            <meta name="csrf-token" content="{{ csrf_token() }}">
         </div>
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <h3>Ayuda: <span id="ayuda">Instrumento Musical</span></h3>
         <h3>Intentos restantes: <span id="intentos">5</span></h3>
         <h3>Letras ingresadas: <span id="letrasIngresadas"></span></h3>

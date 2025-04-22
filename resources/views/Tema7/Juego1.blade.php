@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/styleDragAndDrop.css') }}" />
   </head>
   <body>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- partial:index.partial.html -->
     <section class="score">
         <span class="correct">0</span>/<span class="total">0</span>

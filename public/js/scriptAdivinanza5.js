@@ -26,12 +26,17 @@ let divsPalabraActual = [];
 let totalQueDebeAcertar;
 let puntajeTotal = 0;  // Puntos acumulados
 let intentosFallidosActual = 0;  // Intentos fallidos en cada palabra
+let nota = 0;
+
+const PUNTOS_TOTALES = 100; // Puntaje máximo
+const PUNTOS_POR_PALABRA = PUNTOS_TOTALES / 6; // Puntos disponibles por cada palabra
+const PENALIZACION_POR_ERROR = 3.33; // Puntos que se restan por cada error (20% de los puntos por palabra)
 
 // Función para cargar una nueva palabra
 function cargarNuevaPalabra() {
     // Si ya se jugó al menos una vez, calculamos puntaje
     if (cantPalabrasJugadas > 0) {
-        let puntajePalabra = 1 - (intentosFallidosActual * 0.25);
+        let puntajePalabra = PUNTOS_POR_PALABRA - (intentosFallidosActual * PENALIZACION_POR_ERROR);
         if (puntajePalabra < 0) puntajePalabra = 0;
         puntajeTotal += puntajePalabra;
         console.log(`Puntaje obtenido por palabra: ${puntajePalabra.toFixed(2)}`);
@@ -42,6 +47,7 @@ function cargarNuevaPalabra() {
         let puntajeFinal = puntajeTotal.toFixed(2);
         setTimeout(() => {
             alert(`🎉 Juego terminado\nTu puntaje final es: ${puntajeFinal} / 6`);
+            guardarPuntaje(puntajeFinal);
         }, 500);
         return; // No generar más palabras
     }
@@ -177,3 +183,30 @@ function mostrarMensaje(texto, emoji = "") {
 // Iniciar juego
 cargarNuevaPalabra();
 
+const guardarPuntaje = (calificacion) => {
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    console.log(calificacion)
+    const calificacionEntera = Math.floor(calificacion);
+    fetch('/guardar-puntaje', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': token
+        },
+        body: JSON.stringify({
+            id_juego: 17, // cambia estos valores por los correctos en tu juego
+            calificacion: calificacionEntera
+        })
+    })
+    .then(res => {
+        if (!res.ok) throw new Error("Respuesta no OK");
+        return res.json();
+    })
+    .then(data => {
+        console.log('Puntaje guardado correctamente:', data);
+    })
+    .catch(error => {
+        console.error('Error al guardar el puntaje:', error);
+    });
+
+};
