@@ -1,3 +1,24 @@
+let tiempoInicio, tiempoFin, cronometroInterval;
+const tema = "Números";
+const actividad = "Memorama";
+let spanTiempo = document.getElementById("tiempo"); // asegúrate de tener este <span> en tu HTML
+
+const iniciarCronometro = () => {
+    tiempoInicio = new Date();
+    cronometroInterval = setInterval(() => {
+        const ahora = new Date();
+        const duracion = Math.floor((ahora - tiempoInicio) / 1000);
+        const minutos = Math.floor(duracion / 60);
+        const segundos = duracion % 60;
+        spanTiempo.innerText = `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+    }, 1000);
+};
+
+const detenerCronometro = () => {
+    clearInterval(cronometroInterval);
+    tiempoFin = new Date();
+};
+
 const cards = document.querySelectorAll('.card');
 const num_parejas = document.querySelector('.container h2 span')
 
@@ -98,6 +119,9 @@ const reiniciarJuego = () => {
     deshabilitarCartas = false;
     num_parejas.innerHTML = parejas;
 
+    // Iniciar cronómetro
+    iniciarCronometro();
+
     let fichas = [1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8];
     fichas.sort(() => {
         return Math.random() - 0.5;
@@ -109,6 +133,9 @@ const reiniciarJuego = () => {
         img.src = `/images/memograma/${fichas[index]}.jpg`;
         tarjeta.addEventListener('click', darVuelta);
     });
+    // Reiniciar intento en pantalla
+    span_intentos.innerText = intentos;
+    spanTiempo.innerText = "00:00";
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -140,6 +167,10 @@ cards.forEach(tarjeta => {
 })
 
 const mostrarResultados = () => {
+    detenerCronometro();
+    const duracion = Math.floor((tiempoFin - tiempoInicio) / 1000);
+    const minutos = Math.floor(duracion / 60);
+    const segundos = duracion % 60;
     // Calcular la calificación
     const calificacion = calcularCalificacion(intentos, maxIntentos);
 
@@ -147,7 +178,7 @@ const mostrarResultados = () => {
     document.getElementById("modalResultados").style.display = "flex";
     document.getElementById("totalIntentos").innerText = `Puntaje: ${calificacion} puntos`;
 
-    guardarPuntaje(calificacion);
+    guardarPuntaje(calificacion, minutos, segundos, intentos);
 };
 
 const cerrarModal = () => {
@@ -180,26 +211,30 @@ const calcularCalificacion = (intentos, maxIntentos) => {
     return Math.max(calificacion, 0);
 }
 
-const guardarPuntaje = (calificacion) => {
-    console.log('hola');
-    const idJuego = 6; //Este id juego es de la tabla juego (Alfabeto->memograma)
+const guardarPuntaje = (calificacion, minutos, segundos, intentos) => {
+    const nombreUsuario = localStorage.getItem("nombre") || "Jugador";
 
     fetch('/guardar-puntaje', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'), // CSRF token
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         },
         body: JSON.stringify({
-            id_juego: idJuego,
+            nombre_usuario: nombreUsuario,
             calificacion: calificacion,
+            minutos: minutos,
+            segundos: segundos,
+            intentos: intentos,
+            tema: tema,
+            actividad: actividad
         }),
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Puntaje guardado:', data);
+        console.log('✅ Puntaje guardado:', data);
     })
     .catch(error => {
-        console.error('Error al guardar el puntaje:', error);
+        console.error('❌ Error al guardar el puntaje:', error);
     });
 };

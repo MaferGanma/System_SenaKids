@@ -18,6 +18,10 @@ class Nota extends Model
         'intentos',
         'id_juego',
         'id_estudiante',
-
+        'tema',        // 
+        'actividad',   // 
+        'minutos',
+        'segundos',
+        'id_user',     // 
     ];
 }

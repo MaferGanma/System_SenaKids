@@ -8,25 +8,31 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
     public function up(): void
     {
         Schema::create('notas', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre_usuario');
-            $table->integer('calificacion');
-            $table->integer('intentos');
-            $table->unsignedBigInteger('id_estudiante');
-            $table->unsignedBigInteger('id_juego');
-            $table->date('fecha');
-            $table->timestamps();
-            $table->foreign('id_estudiante')->references('id')->on('estudiantes')->onDelete('cascade');
-            // $table->foreign('id_juego')->references('id')->on('juegos_estudiantes')->onDelete('cascade');
+            $table->id(); // id auto incremental
+            $table->string('nombre_usuario'); // Nombre del usuario
+            $table->integer('calificacion'); // Calificación
+            $table->date('fecha'); // Fecha de la calificación
+            $table->timestamps(); // Tiempos de creación y actualización
+            $table->unsignedBigInteger('id_user')->nullable(); // id_user como relación opcional
+            $table->string('tema'); // Tema sin valor por defecto
+            $table->string('actividad'); // Actividad sin valor por defecto
+            $table->integer('intentos')->nullable(); // Intentos, no obligatorio
+
+            // Si necesitas establecer relaciones, puedes hacerlo aquí
+            // $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
     public function down(): void
     {

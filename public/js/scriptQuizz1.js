@@ -4,6 +4,10 @@ let banderas = ["pa.svg", "bo.svg", "ad.svg", "gb.svg", "na.svg"];
 // arreglo que guardara la opcion correcta
 let correcta = [2, 2, 1, 1, 0];
 
+//variables para el tiempo:
+let tiempoInicio;
+let tiempoFin;
+
 // arreglo que guardara los paises a mostrar en cada jugada
 let opciones = [];
 // cargo en el arreglo opciones las opciones a mostrar en cada jugada
@@ -19,6 +23,8 @@ let posActual = 0;
 let cantidadAcertadas = 0;
 
 function comenzarJuego() {
+    //Iniciar tiempo al comenzar
+    tiempoInicio = new Date();
     // reseteamos las variables
     posActual = 0;
     cantidadAcertadas = 0;
@@ -82,6 +88,20 @@ function terminarJuego() {
     // agregamos los resultados
     document.getElementById("numCorrectas").innerHTML = cantidadAcertadas;
     document.getElementById("numIncorrectas").innerHTML = banderas.length - cantidadAcertadas;
+     // Tiempo
+     tiempoFin = new Date();
+     const duracion = Math.floor((tiempoFin - tiempoInicio) / 1000); // en segundos
+     const minutos = Math.floor(duracion / 60);
+     const segundos = duracion % 60;
+ 
+     // Nota sobre 100 (por ejemplo: 5 preguntas, cada una vale 20 puntos)
+     const notaFinal = Math.round((cantidadAcertadas * 100) / banderas.length);
+
+     // Aquí actualizas el contenido de la etiqueta con el puntaje
+    document.getElementById("notaFinal").innerHTML = `${notaFinal} / 100`;
+ 
+     // Llamamos a guardar el puntaje
+     guardarPuntaje(notaFinal, minutos, segundos, banderas.length - cantidadAcertadas);
 }
 
 function volverAlInicio() {
@@ -89,4 +109,34 @@ function volverAlInicio() {
     document.getElementById("pantalla-final").style.display = "none";
     document.getElementById("pantalla-inicial").style.display = "block";
     document.getElementById("pantalla-juego").style.display = "none";
+}
+
+function guardarPuntaje(calificacion, minutos, segundos, intentos) {
+    const nombreUsuario = localStorage.getItem("nombre") || "Jugador";
+    const tema = "Alfabeto";
+    const actividad = "Cuestionario";
+
+    fetch("/guardar-puntaje", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+        },
+        body: JSON.stringify({
+            nombre_usuario: nombreUsuario,
+            calificacion: calificacion,
+            minutos: minutos,
+            segundos: segundos,
+            intentos: intentos,
+            tema: tema,
+            actividad: actividad
+        }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        console.log("✅ Puntaje guardado:", data);
+    })
+    .catch((error) => {
+        console.error("❌ Error al guardar el puntaje:", error);
+    });
 }

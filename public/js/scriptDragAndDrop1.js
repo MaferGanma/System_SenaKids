@@ -70,6 +70,9 @@ let droppableElements;
 const correctSound = new Audio("https://www.soundjay.com/button/sounds/button-4.mp3");
 const incorrectSound = new Audio("https://www.soundjay.com/button/sounds/button-10.mp3");
 
+let startTime = null;
+let timerInterval = null;
+
 initiateGame();
 
 function initiateGame() {
@@ -120,7 +123,14 @@ function initiateGame() {
 
 function dragStart(event) {
   event.dataTransfer.setData("text", event.target.id);
+
+  // Iniciar cronómetro solo una vez
+  if (!startTime) {
+    startTime = Date.now();
+    timerInterval = setInterval(updateTimerDisplay, 1000);
+  }
 }
+
 
 function dragEnter(event) {
   if (event.target.classList.contains("droppable") && !event.target.classList.contains("dropped")) {
@@ -349,40 +359,87 @@ function showEndMessage() {
     const finalScore = document.getElementById("final-score");
     finalScore.textContent = `Obtuviste ${correct} de ${total} intentos.`;
     document.getElementById("end-message").style.display = "flex";
+    stopTimer();
     calculo_calificacion(correct, total)
-
 }
 
-function calculo_calificacion(correct, total_intentos){
-    calificacion = 100;
-    if(total_intentos > correct){
-        for(i = correct; i< total_intentos; i++){
-            calificacion = calificacion - 10;
-        }
-    }
-    guardarPuntaje(calificacion);
+function calculo_calificacion(correct, total_intentos){ 
+  let calificacion = 100;
+  if(total_intentos > correct){
+      for(let i = correct; i < total_intentos; i++){
+          calificacion = calificacion - 10;
+      }
+  }
+  // Llamamos a guardarPuntaje con los parámetros correctos
+  guardarPuntaje(calificacion, getMinutes(), getSeconds(), total_intentos);
 }
 
-const guardarPuntaje = (calificacion) => {
-    console.log('hola');
-    const idJuego = 3; //Este id juego es de la tabla juego (Alfabeto->memograma)
+const guardarPuntaje = (calificacion, minutos, segundos, intentos) => {
+console.log('Guardando puntaje...');
 
-    fetch('/guardar-puntaje', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'), // CSRF token
-        },
-        body: JSON.stringify({
-            id_juego: idJuego,
-            calificacion: calificacion,
-        }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Puntaje guardado:', data);
-    })
-    .catch(error => {
-        console.error('Error al guardar el puntaje:', error);
-    });
+// Datos fijos
+const nombreUsuario = localStorage.getItem("nombre") || 'Jugador1';
+const tema = 'Alfabeto';      // Puedes cambiarlo según el juego
+const actividad = 'Juego 3';  // Cambia el nombre según tu juego
+
+fetch('/guardar-puntaje', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json', 
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+    },
+    credentials: 'include',
+    body: JSON.stringify({
+        nombre_usuario: nombreUsuario,
+        calificacion: Math.floor(calificacion),
+        tema: tema,
+        actividad: actividad,
+        intentos: intentos,
+        minutos: minutos,
+        segundos: segundos
+    }),
+})
+.then(response => response.text())
+.then(data => {
+    console.log('✅ Puntaje guardado:', data);
+})
+.catch(error => {
+    console.error('❌ Error al guardar el puntaje:', error);
+});
 };
+
+// Función para obtener los minutos
+function getMinutes() {
+const elapsedTime = Math.floor((Date.now() - startTime) / 1000); // en segundos
+return Math.floor(elapsedTime / 60);
+}
+
+// Función para obtener los segundos
+function getSeconds() {
+const elapsedTime = Math.floor((Date.now() - startTime) / 1000); // en segundos
+return elapsedTime % 60;
+}
+
+function stopTimer() {
+clearInterval(timerInterval);
+timerInterval = null;
+}
+
+function updateTimerDisplay() {
+const minutes = getMinutes();
+const seconds = getSeconds();
+
+const timerEl = document.getElementById("timer-display");
+if (timerEl) {
+  timerEl.textContent = `⏱️ Tiempo: ${minutes}:${seconds}`;
+}
+}
+
+function startTimer() {
+startTime = Date.now();  // Inicia el tiempo desde ahora
+timerInterval = setInterval(updateTimerDisplay, 1000);  // Actualiza cada segundo
+}
+
+// Iniciar el temporizador cuando comience el juego
+startTimer();

@@ -30,7 +30,7 @@
             <button class="btn" id="comenzar">Comenzar</button>
         </main>
     </div>
-
+    
     <script src="{{ asset('js/index.js') }}"></script>
 </body>
 </html>

@@ -113,5 +113,16 @@
             </div>
         </a>
     </div>
+    <!-- Botones controladores de la música-->
+	<div style="position: fixed; bottom: 10px; right: 10px; z-index: 1000;">
+        <button onclick="document.getElementById('background-music').play()" title="Reproducir música">🔈</button>
+        <button onclick="document.getElementById('background-music').pause()" title="Pausar música">🔇</button>        
+    </div>
+
+    <!-- Botones controladores de la música-->
+	<audio id="background-music" autoplay loop>
+        <source src="{{ asset('sounds/dashboard.mp3') }}" type="audio/mpeg">
+    Tu navegador no soporta el audio HTML5.
+    </audio>
 </body>
 </html>

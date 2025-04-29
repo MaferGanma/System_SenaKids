@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Memograma Parejas</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{asset('css/stylememograma.css')}}" />
     <link
       rel="stylesheet"
@@ -179,6 +180,7 @@
       </div>
 
       <input type="hidden" id="userId" value="{{ Auth::id() }}">
+      <h2>Tiempo: <span id="tiempo">00:00</span></h2>
 
       <button onclick="guardarPuntaje(100)" style="display: none;">Presionar</button>
 

@@ -48,6 +48,7 @@
     <div id="pantalla-final">
         <h2>CORRECTAS: <span id="numCorrectas">3</span></h2>
         <h2>INCORRECTAS: <span id="numIncorrectas">2</span></h2>
+        <h2>TU NOTA FINAL: <span id="notaFinal">0</span> / 100</h2>
         <button class="btn" onclick="volverAlInicio()">VOLVER AL INICIO</button>
     </div>
 

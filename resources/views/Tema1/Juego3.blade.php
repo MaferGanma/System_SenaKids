@@ -15,6 +15,7 @@
 <body>
 
     <section>
+        <div id="cronometro">0m 0s</div>
 
         <h2>Adivina la Palabra</h2>
         <div id="palabra">
@@ -42,6 +43,18 @@
         <div id="tecladoVirtual"></div>
 
     </section>
+
+    <!-- Botones controladores de la música-->
+    <div style="position: fixed; bottom: 10px; right: 10px; z-index: 1000;">
+        <button onclick="document.getElementById('background-music').play()" title="Reproducir música">🔈</button>
+        <button onclick="document.getElementById('background-music').pause()" title="Pausar música">🔇</button>
+    </div>
+
+    <!-- Botones controladores de la música-->
+    <audio id="background-music" autoplay loop>
+        <source src="{{ asset('sounds/minigame3.mp3') }}" type="audio/mpeg">
+        Tu navegador no soporta el audio HTML5.
+    </audio>
 
     <!-- Script del juego -->
     <script src="{{ asset('js/scriptAdivinanza1.js') }}"></script>
