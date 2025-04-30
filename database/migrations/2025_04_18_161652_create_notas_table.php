@@ -14,17 +14,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notas', function (Blueprint $table) {
-            $table->id(); // id auto incremental
-            $table->string('nombre_usuario'); // Nombre del usuario
-            $table->integer('calificacion'); // Calificación
-            $table->date('fecha'); // Fecha de la calificación
-            $table->timestamps(); // Tiempos de creación y actualización
-            $table->unsignedBigInteger('id_user')->nullable(); // id_user como relación opcional
-            $table->string('tema'); // Tema sin valor por defecto
-            $table->string('actividad'); // Actividad sin valor por defecto
-            $table->integer('intentos')->nullable(); // Intentos, no obligatorio
+            $table->id(); // BIGINT UNSIGNED AUTO_INCREMENT
+            $table->string('nombre_usuario'); // VARCHAR(255) NOT NULL
+            $table->integer('calificacion'); // INT NOT NULL
+            $table->date('fecha'); // DATE NOT NULL
+            $table->string('tema'); // VARCHAR(255) NOT NULL
+            $table->string('actividad'); // VARCHAR(255) NOT NULL
+            $table->integer('intentos')->nullable(); // INT NULL
+            $table->integer('minutos')->nullable(); // INT NULL
+            $table->integer('segundos')->nullable(); // INT NULL
+            $table->timestamps(); // created_at y updated_at
+            $table->unsignedBigInteger('id_user')->nullable(); // ID de usuario (opcional)
 
-            // Si necesitas establecer relaciones, puedes hacerlo aquí
             // $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
         });
     }
