@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Pages;
 
-use App\Models\Player;
-use App\Models\Team;
+use App\Models\Estudiante;
+use App\Models\Curso;
 use MoonShine\Pages\Page;
 use MoonShine\Components\MoonShineComponent;
 use MoonShine\Decorations\Grid;
@@ -33,15 +33,15 @@ class Dashboard extends Page
      */
     public function components(): array
 	{
-        $totalPlayers = Player::count();
-        $totalTeams = Team::count();
+        $totalEstudiantes = Estudiante::count();
+        $totalCursos = Curso::count();
 		return [
             Grid::make([
                 ValueMetric::make('Estudiantes Registrados')
-                    ->value($totalPlayers)
+                    ->value($totalEstudiantes)
                     ->icon('heroicons.user'),
                 ValueMetric::make('Cursos Registrados')
-                    ->value($totalTeams)
+                    ->value($totalCursos)
                     ->icon('heroicons.users'),
             ])
         ];
